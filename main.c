@@ -1,24 +1,40 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include "lib.c"
-#include "test.c"
 
 
 
 
-void tsp_helper(float* distance, int (*path)[], int cc, int fc, int* available_cities, float** distances, float curr_dist) {
+void tsp_helper(float* distance, int (*rpath)[], int n, int cc, int fc, int* available_cities, float** distances, float curr_dist, int (*path)[], int depth) {
     // todo: 
     // impliment this now
     // you still haven't fully finisehd tsp
-    // notice you didn't copy the path parameter from the original implimentation
-    // in tsp you can now change the values of the passed in values
+    // you are trying to figure out how to handle the return values of tsp_helper
+    // right now it manipulates the d and p variables
+    // how can you manipulate these in a way that you can update them based on the shortest so far route
+
+    int* cp_p = cp_int_array(*path, depth);
+    int* cp_path = arr_add(cp_p, depth, cc);
+    int ac_len = n-(depth+1);
+
+    for (int i = 0; i < ac_len; i++) {
+        int ac = available_cities[i];
+        int* cp_a = cp_int_array(available_cities, ac_len);
+        int* cp_ac = arr_remove(cp_a, ac_len, ac);
+        float new_dist = curr_dist + distances[cc][ac];
+        float d = 99999.0;
+        int p[n];
+        tsp_helper(&d, &p, n, ac, fc, cp_ac, distances, new_dist, cp_path, ++depth);
+
+
+    }
 
     *distance = 10;
-    (*path)[0] = 5;
-    (*path)[1] = 5;
-    (*path)[2] = 5;
-    (*path)[3] = 5;
-    (*path)[4] = 5;
+    (*rpath)[0] = 5;
+    (*rpath)[1] = 5;
+    (*rpath)[2] = 5;
+    (*rpath)[3] = 5;
+    (*rpath)[4] = 5;
 }
 
 
@@ -29,15 +45,18 @@ path - changed inside function to the shortest path eg: [4,3,2,1,4]
 void tsp(float* distance, int** path, float** distances, int n) {
     int* shortest_path = (int*)malloc(sizeof(int) * n);
     int* cities = range(n);
+    float curr_dist = 0.0;
+    int depth = 0;
+    int arr[0];
 
     for (int i = 0; i < n; i++) {
         int* cp_ac = cp_int_array(cities, n);
         int* cp = arr_remove(cp_ac, n, i);
         float distance = 0.0;
         int path[n];
-        tsp_helper(&distance, &path, i, i, cp, distances, 0);
+        tsp_helper(&distance, &path, n, i, i, cp, distances, curr_dist, &arr, depth);
         // printf("%f\n", distance);
-        print_array(path, n);
+        // print_array(path, n);
     }
     
 
@@ -48,8 +67,6 @@ void tsp(float* distance, int** path, float** distances, int n) {
 
 
 int main() { 
-    // run_tests();
-
     int n = 5;
     city* cities = get_cities(n);
     float** distances = get_distances(cities, n);

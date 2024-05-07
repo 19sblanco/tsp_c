@@ -97,3 +97,12 @@ int* arr_remove(int* arr, int n, int item) {
     }
     return newarr;
 }
+
+int* arr_add(int* arr, int n, int item) {
+    int* newarr = (int*)malloc(sizeof(int) * (n+1));
+    for (int i = 0; i < n; i++) {
+        newarr[i] = arr[i];
+    }
+    newarr[n] = item;
+    return newarr;
+}
