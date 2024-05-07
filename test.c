@@ -47,9 +47,19 @@ void test_cp_int_array_1() {
     printf("=== ===\n");
 }
 
+void test_zeros_1() {
+    printf("=== 5 element array w/ 0's ===\n");
+    int n = 5;
+    int* arr = zeros(n);
+    print_array(arr, n);
+    printf("=== ===\n");
+
+}
+
 int main() {
     test_remove_1();
     test_remove_2();
     test_add_1();
     test_cp_int_array_1();
+    test_zeros_1();
 }

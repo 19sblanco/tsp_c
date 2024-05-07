@@ -14,8 +14,8 @@ city make_city(float x, float y) {
 }
 
 
-city* get_cities(int n) {
-    city* cities = (city*) malloc(sizeof(city) * n);
+city* get_cities5() {
+    city* cities = (city*) malloc(sizeof(city) * 5);
     city c0 = make_city(0.0, 0.0);
     city c1 = make_city(-1.0, 2.0);
     city c2 = make_city(1.0, 4.0);
@@ -26,6 +26,17 @@ city* get_cities(int n) {
     cities[2] = c2;
     cities[3] = c3;
     cities[4] = c4;
+    return cities;
+}
+
+city* get_cities3() {
+    city* cities = (city*) malloc(sizeof(city) * 3);
+    city c0 = make_city(0.0, 0.0);
+    city c1 = make_city(-1.0, 2.0);
+    city c2 = make_city(1.0, 4.0);
+    cities[0] = c0;
+    cities[1] = c1;
+    cities[2] = c2;
     return cities;
 }
 
@@ -75,6 +86,15 @@ int* range(int n){
         arr[i] = i;
     }
     return arr;
+}
+
+int* zeros(int n) {
+    int* arr = (int*)malloc(sizeof(int) * n);
+    for (int i = 0; i < n; i++) {
+        arr[i] = 0;
+    }
+    return arr;
+
 }
 
 int* cp_int_array(int* arr, int n) {
