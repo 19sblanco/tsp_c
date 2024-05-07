@@ -40,18 +40,20 @@ city* get_cities3() {
     return cities;
 }
 
+void print_cities(city* cities, int* order, int n) {
+    int idx;
+    for (int i = 0; i < n; i++) {
+        idx = order[i];
+        city c = cities[idx];
+        printf("(%f, %f) -> ", c.x, c.y);
+    }
+    printf("(%f, %f) \n", cities[order[0]].x, cities[order[0]].y);
+
+}
+
 void print_array(int* arr, int n) {
     for (int i = 0; i < n; i++) {
         printf("%d, ", arr[i]);
-    }
-    printf("\n");
-}
-
-void print_cities(city* cities, int n) {
-    for (int i = 0; i < n; i++) {
-        double x = cities[i].x;
-        double y = cities[i].y;
-        printf("(%f, %f)-> ", x, y);
     }
     printf("\n");
 }
@@ -137,6 +139,11 @@ int arr_equal(int* arr1, int* arr2, int n) {
         }
     }
     return 1;
+}
+
+double rando() {
+    double rand_double = (double)rand() / RAND_MAX;
+    return rand_double;
 }
 
 int almost_equal(double a, double b) {
