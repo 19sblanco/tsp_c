@@ -2,11 +2,11 @@
 
 
 typedef struct {
-    float x;
-    float y;
+    double x;
+    double y;
 } city;
 
-city make_city(float x, float y) {
+city make_city(double x, double y) {
     city c;
     c.x = x;
     c.y = y;
@@ -49,29 +49,32 @@ void print_array(int* arr, int n) {
 
 void print_cities(city* cities, int n) {
     for (int i = 0; i < n; i++) {
-        float x = cities[i].x;
-        float y = cities[i].y;
+        double x = cities[i].x;
+        double y = cities[i].y;
         printf("(%f, %f)-> ", x, y);
     }
     printf("\n");
 }
 
-float** get_distances(city* cities, int n) {
-    float** distances = (float**) malloc(sizeof(float*) * n);
+double get_distance(city c1, city c2) {
+    return pow( pow(c1.x-c2.x, 2) + pow(c1.y-c2.y, 2), .5);
+}
+
+
+double** get_distances(city* cities, int n) {
+    double** distances = (double**) malloc(sizeof(double*) * n);
     for (int i = 0; i < n; i++) {
-        float* row = (float*) malloc(sizeof(float) * n);
+        double* row = (double*) malloc(sizeof(double) * n);
         distances[i] = row;
         for (int j = 0; j < n; j++) {
-            city fc = cities[i];
-            city tc = cities[j];
-            float distance = pow( pow(fc.x-tc.x, 2) + pow(fc.y-tc.y, 2), .5);
-            row[j] = distance;
+            double dist = get_distance(cities[i], cities[j]);
+            row[j] = dist;
         }
     }
     return distances;
 }
 
-void print_distances(float** distances, int n) {
+void print_distances(double** distances, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             printf("%f ", distances[i][j]);
@@ -125,4 +128,84 @@ int* arr_add(int* arr, int n, int item) {
     }
     newarr[n] = item;
     return newarr;
+}
+
+int arr_equal(int* arr1, int* arr2, int n) {
+    for (int i = 0; i < n; i++) {
+        if (arr1[i] != arr2[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int almost_equal(double a, double b) {
+    double threshold = .1;
+    if ((a > (b-threshold)) && (a < (b+threshold))) {
+        return 1;
+    }
+    else return 0;
+}
+
+/*
+cp_path: a path array that addeds the current city throughout recursion
+ac_len: length of the available_cities array
+s_p_sofar[n]: "shortest_path_sofar"
+s_d_sofar: "shorest_distance_sofar"
+*/
+void tsp_helper(double* distance, int** rpath, int n, int cc, int fc, int* available_cities, double** distances, double curr_dist, int* path, int depth) {
+    int* cp_path = arr_add(path, depth, cc);
+    int ac_len = n-(depth+1);
+
+    double s_d_sofar = -1.0;
+    int* s_p_sofar = zeros(n);
+
+    for (int i = 0; i < ac_len; i++) {
+        int ac = available_cities[i];
+        int* cp_ac = arr_remove(available_cities, ac_len, ac);
+        double new_dist = curr_dist + distances[cc][ac];
+        double d = 0.0;
+        int* p = zeros(n);
+        tsp_helper(&d, &p, n, ac, fc, cp_ac, distances, new_dist, cp_path, depth+1);
+        if ((s_d_sofar == -1.0) || (d < s_d_sofar)) {
+            s_d_sofar = d;
+            s_p_sofar = cp_int_array(p, n);
+        }
+    }
+    if (ac_len < 1) {
+        s_d_sofar = curr_dist + distances[cc][fc];
+        s_p_sofar = cp_path;
+    }
+
+    *distance = s_d_sofar;
+    *rpath = s_p_sofar;
+}
+
+
+/*
+distance - changed inside function to shortest path distance
+path - changed inside function to the shortest path eg: [4,3,2,1,4]
+*/
+void tsp(double* distance, int** path, double** distances, int n) {
+    int* shortest_path = (int*)malloc(sizeof(int) * n);
+    double shortest_distance = -1.0;
+
+    int* cities = range(n);
+    double curr_dist = 0.0;
+    int depth = 0;
+    int* arr = zeros(0);
+
+    for (int i = 0; i < n; i++) {
+        int* cp = arr_remove(cities, n, i);
+        double distance = 0.0;
+        int* path = zeros(n);
+        tsp_helper(&distance, &path, n, i, i, cp, distances, curr_dist, arr, depth);
+        if ((shortest_distance == -1.0) || (distance < shortest_distance)) {
+            shortest_distance = distance;
+            shortest_path = cp_int_array(path, n);
+        }
+    }
+    *distance = shortest_distance;
+    *path = cp_int_array(shortest_path, n);
+
 }
