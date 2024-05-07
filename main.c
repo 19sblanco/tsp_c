@@ -12,6 +12,7 @@ void tsp_helper(float* distance, int (*rpath)[], int n, int cc, int fc, int* ava
     // you are trying to figure out how to handle the return values of tsp_helper
     // right now it manipulates the d and p variables
     // how can you manipulate these in a way that you can update them based on the shortest so far route
+    // note you have a complier warning when you try to make
 
     int* cp_p = cp_int_array(*path, depth);
     int* cp_path = arr_add(cp_p, depth, cc);
@@ -55,8 +56,8 @@ void tsp(float* distance, int** path, float** distances, int n) {
         float distance = 0.0;
         int path[n];
         tsp_helper(&distance, &path, n, i, i, cp, distances, curr_dist, &arr, depth);
-        // printf("%f\n", distance);
-        // print_array(path, n);
+        printf("%f\n", distance);
+        print_array(path, n);
     }
     
 
