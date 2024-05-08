@@ -15,18 +15,28 @@ city make_city(double x, double y) {
 }
 
 
-city* get_cities5() {
-    city* cities = (city*) malloc(sizeof(city) * 5);
+city* get_cities5(int n) {
+    city* cities = (city*) malloc(sizeof(city) * n);
     city c0 = make_city(0.0, 0.0);
     city c1 = make_city(-1.0, 2.0);
     city c2 = make_city(1.0, 4.0);
     city c3 = make_city(-1.0, 8.0);
     city c4 = make_city(1.0, 12.0);
+    city c5 = make_city(100.0, 12.0);
+    city c6 = make_city(12.0, 12.0);
+    city c7 = make_city(-13.0, -13.0);
+    city c8 = make_city(-130.0, -13.0);
+    city c9 = make_city(690.0, 42.0);
     cities[0] = c0;
     cities[1] = c1;
     cities[2] = c2;
     cities[3] = c3;
     cities[4] = c4;
+    cities[5] = c5;
+    cities[6] = c6;
+    cities[7] = c7;
+    cities[8] = c8;
+    cities[9] = c9;
     return cities;
 }
 

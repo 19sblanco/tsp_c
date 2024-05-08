@@ -23,8 +23,8 @@ int main() {
     clock_t start, end;
     start = clock();
 
-    int n = 5;
-    city* cities = get_cities5();
+    int n = 10;
+    city* cities = get_cities5(n);
     double** distances = get_distances(cities, n);
     double distance = 0.0;
     int* path = (int*)malloc(sizeof(int) * n);
