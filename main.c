@@ -4,6 +4,14 @@
 #include "lib.c"
 
 
+/*
+
+todo: be able to generate random cities (reject ones that are too close)
+be able to input cities (brain storm potential inputs)
+    * file input
+    * manually typing it in
+*/
+
 
 
 
@@ -11,7 +19,6 @@
 traveling salesman kick off function
 n - number of cities (make sure get cities matches this)
 */
-
 int main() { 
     clock_t start, end;
     start = clock();

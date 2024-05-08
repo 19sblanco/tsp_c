@@ -1,4 +1,5 @@
 #include <math.h>
+#include <time.h>
 
 
 typedef struct {
@@ -215,4 +216,40 @@ void tsp(double* distance, int** path, double** distances, int n) {
     *distance = shortest_distance;
     *path = cp_int_array(shortest_path, n);
 
+}
+
+/*
+check whether or not a city is withing the threshold distance of
+the other cities
+*/
+int outside_range(city* cities, int n, city c, double threshold) {
+    for (int i = 0; i < n; i++) {
+        double dist = get_distance(c, cities[i]);
+        if (dist > threshold) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+city* random_cities(int n, double threshold) {
+    srand(time(NULL));
+    int x, y, is_far_enough;
+    city c;
+    city* cities = (city*) malloc(sizeof(city) * n);
+    for (int i = 0; i < n; i++) {
+        while (1) {
+            x = rand();
+            y = rand();
+            c = make_city(x, y);
+            is_far_enough = outside_range(cities, i, c, threshold);
+            if (is_far_enough == 1) {
+                printf("\n.....\n");
+                break;
+            }
+            printf(".");
+        }
+        cities[i] = c;
+    }
+    return cities;
 }

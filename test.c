@@ -215,6 +215,18 @@ void test_tsp_5() {
     printf("=== ===\n");
 }
 
+void random_cities_1() {
+    printf("=== random cities 1 ===\n");
+    int n = 5;
+    double threshold = .01;
+    int* order = range(n);
+    for (int i = 0; i < n; i++) {
+        city* cities = random_cities(n, threshold);
+        print_cities(cities, order, n);
+    }
+    printf("=== ===\n");
+}
+
 
 
 
@@ -233,4 +245,5 @@ int main() {
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
+    random_cities_1();
 }
