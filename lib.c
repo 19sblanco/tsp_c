@@ -27,6 +27,8 @@ city* get_cities5(int n) {
     city c7 = make_city(-13.0, -13.0);
     city c8 = make_city(-130.0, -13.0);
     city c9 = make_city(690.0, 42.0);
+    // city c10 = make_city(100.0, 42.0);
+    // city c11 = make_city(6.0, 142.0);
     cities[0] = c0;
     cities[1] = c1;
     cities[2] = c2;
@@ -37,6 +39,8 @@ city* get_cities5(int n) {
     cities[7] = c7;
     cities[8] = c8;
     cities[9] = c9;
+    // cities[10] = c10;
+    // cities[11] = c11;
     return cities;
 }
 

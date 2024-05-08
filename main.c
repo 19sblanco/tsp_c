@@ -7,9 +7,16 @@
 /*
 
 todo: be able to generate random cities (reject ones that are too close)
+    * work in lib file, ran in test
 be able to input cities (brain storm potential inputs)
     * file input
     * manually typing it in
+     
+     
+problem: with 12 cities there is too much memory being used
+two solutions:
+    1 free memory that is no longer used in tsp helper
+    2 make a memory efficient version of svm (more computation less caching)
 */
 
 
