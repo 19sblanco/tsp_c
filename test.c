@@ -245,5 +245,5 @@ int main() {
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
-    random_cities_1();
+    // random_cities_1();
 }
