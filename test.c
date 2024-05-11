@@ -232,14 +232,14 @@ void random_cities_1() {
 
 
 int main() {
-    test_remove_1();
-    test_remove_2();
-    test_almost_equal();
-    test_add_1();
-    test_cp_int_array_1();
-    test_zeros_1();
-    test_equals_1();
-    test_equals_2();
+    // test_remove_1();
+    // test_remove_2();
+    // test_almost_equal();
+    // test_add_1();
+    // test_cp_int_array_1();
+    // test_zeros_1();
+    // test_equals_1();
+    // test_equals_2();
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();

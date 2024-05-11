@@ -30,7 +30,7 @@ int main() {
     clock_t start, end;
     start = clock();
 
-    int n = 10;
+    int n = 11;
     city* cities = get_cities5(n);
     double** distances = get_distances(cities, n);
     double distance = 0.0;

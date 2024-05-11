@@ -27,7 +27,7 @@ city* get_cities5(int n) {
     city c7 = make_city(-13.0, -13.0);
     city c8 = make_city(-130.0, -13.0);
     city c9 = make_city(690.0, 42.0);
-    // city c10 = make_city(100.0, 42.0);
+    city c10 = make_city(100.0, 42.0);
     // city c11 = make_city(6.0, 142.0);
     cities[0] = c0;
     cities[1] = c1;
@@ -39,7 +39,7 @@ city* get_cities5(int n) {
     cities[7] = c7;
     cities[8] = c8;
     cities[9] = c9;
-    // cities[10] = c10;
+    cities[10] = c10;
     // cities[11] = c11;
     return cities;
 }
@@ -193,6 +193,8 @@ void tsp_helper(double* distance, int* rpath, int n, int cc, int fc, int* availa
             s_d_sofar = d;
             s_p_sofar = cp_int_array(p, n);
         }
+        free(cp_ac);
+        free(p);
     }
     if (ac_len < 1) {
         s_d_sofar = curr_dist + distances[cc][fc];
@@ -201,8 +203,8 @@ void tsp_helper(double* distance, int* rpath, int n, int cc, int fc, int* availa
 
     *distance = s_d_sofar;
     rpath = cp_int_array(s_p_sofar, n);
-
-    
+    // free(cp_path);
+    free(s_p_sofar);
 }
 
 
@@ -228,6 +230,8 @@ void tsp(double* distance, int** path, double** distances, int n) {
             shortest_distance = distance;
             shortest_path = cp_int_array(path, n);
         }
+        free(cp);
+        free(path);
     }
     *distance = shortest_distance;
     *path = cp_int_array(shortest_path, n);
