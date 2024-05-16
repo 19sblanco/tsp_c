@@ -272,3 +272,10 @@ city* random_cities(int n, double threshold) {
     }
     return cities;
 }
+
+int input_random_cities() {
+    int number;
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+    return number;
+}
