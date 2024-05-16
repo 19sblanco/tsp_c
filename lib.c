@@ -177,35 +177,39 @@ s_d_sofar: "shorest_distance_sofar"
 
 gets the path and distance of the shortest path
 */
-void tsp_helper(double* distance, int* rpath, int n, int cc, int fc, int* available_cities, double** distances, double curr_dist, int* path, int depth) {
+void tsp_helper(double* rdistance, int** rpath, int n, int cc, int fc, int* available_cities, double** distances, double curr_dist, int* path, int depth) {
     int* cp_path = arr_add(path, depth, cc);
     int ac_len = n-(depth+1);
 
     double s_d_sofar = -1.0;
-    int* s_p_sofar = zeros(n);
+    int* s_p_sofar = zeros(0);
 
     for (int i = 0; i < ac_len; i++) {
         int ac = available_cities[i];
         int* cp_ac = arr_remove(available_cities, ac_len, ac);
         double new_dist = curr_dist + distances[cc][ac];
         double d = 0.0;
-        int* p = zeros(n);
-        tsp_helper(&d, p, n, ac, fc, cp_ac, distances, new_dist, cp_path, depth+1);
+        int* p = zeros(0);
+        tsp_helper(&d, &p, n, ac, fc, cp_ac, distances, new_dist, cp_path, depth+1);
         if ((s_d_sofar == -1.0) || (d < s_d_sofar)) {
             s_d_sofar = d;
             free(s_p_sofar);
             s_p_sofar = cp_int_array(p, n);
         }
+        free(p);
+        free(cp_ac);
     }
+    free(*rpath);
     if (ac_len < 1) {
-        *distance = curr_dist + distances[cc][fc];
-        rpath = cp_int_array(cp_path, n);
+        *rdistance = curr_dist + distances[cc][fc];
+        *rpath = cp_int_array(cp_path, n);
     }
     else {
-        *distance = s_d_sofar;
-        rpath = cp_int_array(s_p_sofar, n);
+        *rdistance = s_d_sofar;
+        *rpath = cp_int_array(s_p_sofar, n);
     }
     free(s_p_sofar);
+    free(cp_path);
 }
 
 
@@ -216,15 +220,14 @@ path - changed inside function to the shortest path eg: [4,3,2,1,4]
 void tsp(double* shortest_distance, int** path, double** distances, int n) {
     int* shortest_path = (int*)malloc(sizeof(int) * n);
 
-
     double r_distance = 0.0;
-    int* r_path = zeros(n);
+    int* r_path = zeros(0);
     int first_city = 0;
     int* cities = range(n);
     int* avail_cities = arr_remove(cities, n, first_city);
     int* path_so_far = zeros(0);
 
-    tsp_helper(&r_distance, r_path, n, first_city, first_city, avail_cities, distances, 0,  path_so_far, 0);
+    tsp_helper(&r_distance, &r_path, n, first_city, first_city, avail_cities, distances, 0,  path_so_far, 0);
 
     *shortest_distance = r_distance;
     *path = cp_int_array(shortest_path, n);

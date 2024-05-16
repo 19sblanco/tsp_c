@@ -229,8 +229,7 @@ void random_cities_1() {
 
 
 void test_tsp_memory() {
-
-    printf("=== memory stress test ===\n");
+    printf("=== memory stress test 12 cities ===\n");
     int n = 12;
     city* cities = (city*) malloc(sizeof(city) * n);
     city c0 = make_city(0.0, 0.0);
