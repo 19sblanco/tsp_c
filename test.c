@@ -215,19 +215,6 @@ void test_tsp_5() {
     printf("=== ===\n");
 }
 
-void random_cities_1() {
-    printf("=== random cities 1 ===\n");
-    int n = 5;
-    double threshold = .01;
-    int* order = range(n);
-    for (int i = 0; i < n; i++) {
-        city* cities = random_cities(n, threshold);
-        print_cities(cities, order, n);
-    }
-    printf("=== ===\n");
-}
-
-
 void test_tsp_memory() {
     printf("=== memory stress test 12 cities ===\n");
     int n = 12;
@@ -265,6 +252,17 @@ void test_tsp_memory() {
 
 }
 
+void random_cities_1() {
+    printf("=== random cities 1 ===\n");
+    int n = 5;
+    double threshold = .01;
+    int* order = range(n);
+    city* cities = random_cities(n, threshold);
+    print_cities(cities, order, n);
+    printf("=== ===\n");
+}
+
+
 
 int main() {
     // test_remove_1();
@@ -275,11 +273,11 @@ int main() {
     // test_zeros_1();
     // test_equals_1();
     // test_equals_2();
+    // test_tsp_memory();
+    // random_cities_1();
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
-    test_tsp_memory();
-    // random_cities_1();
 }

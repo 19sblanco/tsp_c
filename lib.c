@@ -243,19 +243,19 @@ void tsp(double* shortest_distance, int** path, double** distances, int n) {
 check whether or not a city is withing the threshold distance of
 the other cities
 */
-int outside_range(city* cities, int n, city c, double threshold) {
+int within_range(city* cities, int n, city c, double threshold) {
     for (int i = 0; i < n; i++) {
         double dist = get_distance(c, cities[i]);
-        if (dist > threshold) {
-            return 0;
+        if (dist < threshold) {
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 city* random_cities(int n, double threshold) {
     srand(time(NULL));
-    int x, y, is_far_enough;
+    int x, y, in_range;
     city c;
     city* cities = (city*) malloc(sizeof(city) * n);
     for (int i = 0; i < n; i++) {
@@ -263,12 +263,10 @@ city* random_cities(int n, double threshold) {
             x = rand();
             y = rand();
             c = make_city(x, y);
-            is_far_enough = outside_range(cities, i, c, threshold);
-            if (is_far_enough == 1) {
-                printf("\n.....\n");
+            in_range = within_range(cities, i, c, threshold);
+            if (in_range == 0) {
                 break;
             }
-            printf(".");
         }
         cities[i] = c;
     }
