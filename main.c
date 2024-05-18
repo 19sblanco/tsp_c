@@ -6,12 +6,21 @@
 
 /*
 
-todo: be able to generate random cities (reject ones that are too close)
-    * work in lib file, ran in test
 be able to input cities (brain storm potential inputs)
     * file input
-    * manually typing it in
      
+tsp_C:
+  tsp written in python
+    cities: 12
+    time: 808.4938039779663
+
+  tsp written in C
+    cities: 12
+    time: 23.480295
+    cities: 13
+    time: 265.090176
+
+
 */
 
 
@@ -37,12 +46,12 @@ int main() {
     end = clock();
 
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Time used: %f seconds\n", cpu_time_used);
 
 
     printf("=== output ===\n");
     printf("distance: %f\npath: ", distance);
     print_cities(cities, path, n);
     print_distances(distances, n);
+    printf("Time used: %f seconds\n", cpu_time_used);
     return 0; 
 }
