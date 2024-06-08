@@ -9,9 +9,10 @@ void test_remove_1() {
     printf("=== removing 3 ===\n");
     int n = 5;
     int* arr = range(n);
-    int* newarr = arr_remove(arr, n, 3);
+    int new_arr[n-1];
+    _remove(arr, new_arr, 3, n);
     print_array(arr, n);
-    print_array(newarr, n-1);
+    print_array(new_arr, n-1);
     printf("=== ===\n");
 }
 
@@ -19,11 +20,13 @@ void test_remove_2() {
     printf("=== removing 1,2 ===\n");
     int n = 5;
     int* arr = range(n);
-    int* newarr0 = arr_remove(arr, n, 1);
-    int* newarr1 = arr_remove(newarr0, n-1, 2);
+    int new_arr0[n-1];
+    int new_arr1[n-2];
+    _remove(arr, new_arr0, 1, n);
+    _remove(new_arr0, new_arr1, 2, n-1);
     print_array(arr, n);
-    print_array(newarr0, n-1);
-    print_array(newarr1, n-2);
+    print_array(new_arr0, n-1);
+    print_array(new_arr1, n-2);
     printf("=== ===\n");
 }
 
@@ -265,8 +268,8 @@ void random_cities_1() {
 
 
 int main() {
-    // test_remove_1();
-    // test_remove_2();
+    test_remove_1();
+    test_remove_2();
     // test_almost_equal();
     // test_add_1();
     // test_cp_int_array_1();
@@ -275,9 +278,9 @@ int main() {
     // test_equals_2();
     // test_tsp_memory();
     // random_cities_1();
-    test_tsp_1();
-    test_tsp_2();
-    test_tsp_3();
-    test_tsp_4();
-    test_tsp_5();
+    // test_tsp_1();
+    // test_tsp_2();
+    // test_tsp_3();
+    // test_tsp_4();
+    // test_tsp_5();
 }

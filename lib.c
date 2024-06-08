@@ -147,6 +147,10 @@ int* arr_add(int* arr, int n, int item) {
     return newarr;
 }
 
+/*
+test library functions
+*/
+
 int arr_equal(int* arr1, int* arr2, int n) {
     for (int i = 0; i < n; i++) {
         if (arr1[i] != arr2[i]) {
@@ -169,74 +173,69 @@ int almost_equal(double a, double b) {
     else return 0;
 }
 
+
 /*
-cp_path: a path array that addeds the current city throughout recursion
-ac_len: length of the available_cities array
-s_p_sofar[n]: "shortest_path_sofar"
-s_d_sofar: "shorest_distance_sofar"
-
-gets the path and distance of the shortest path
+test library functions
 */
-void tsp_helper(double* rdistance, int** rpath, int n, int cc, int fc, int* available_cities, double** distances, double curr_dist, int* path, int depth) {
-    int* cp_path = arr_add(path, depth, cc);
-    int ac_len = n-(depth+1);
 
-    double s_d_sofar = -1.0;
-    int* s_p_sofar = zeros(0);
 
-    for (int i = 0; i < ac_len; i++) {
-        int ac = available_cities[i];
-        int* cp_ac = arr_remove(available_cities, ac_len, ac);
-        double new_dist = curr_dist + distances[cc][ac];
-        double d = 0.0;
-        int* p = zeros(0);
-        tsp_helper(&d, &p, n, ac, fc, cp_ac, distances, new_dist, cp_path, depth+1);
-        if ((s_d_sofar == -1.0) || (d < s_d_sofar)) {
-            s_d_sofar = d;
-            free(s_p_sofar);
-            s_p_sofar = cp_int_array(p, n);
+/*
+remove an item from an array
+*/
+void _remove(int* original, int* new, int item, int n) {
+    int j = 0;
+    for (int i = 0; i < n; i++) {
+        if (original[i] == item) {
+            continue;
         }
-        free(p);
-        free(cp_ac);
+        else {
+            new[j] = original[i];
+            j++;
+        }
     }
-    free(*rpath);
-    if (ac_len < 1) {
-        *rdistance = curr_dist + distances[cc][fc];
-        *rpath = cp_int_array(cp_path, n);
-    }
-    else {
-        *rdistance = s_d_sofar;
-        *rpath = cp_int_array(s_p_sofar, n);
-    }
-    free(s_p_sofar);
-    free(cp_path);
 }
 
 
 /*
-distance - changed inside function to shortest path distance
-path - changed inside function to the shortest path eg: [4,3,2,1,4]
 */
-void tsp(double* shortest_distance, int** path, double** distances, int n) {
-    int* shortest_path = (int*)malloc(sizeof(int) * n);
+void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
 
-    double r_distance = 0.0;
-    int* r_path = zeros(0);
-    int first_city = 0;
-    int* cities = range(n);
-    int* avail_cities = arr_remove(cities, n, first_city);
-    int* path_so_far = zeros(0);
+/*
+  this code assumes that a node knows the distance to get to it
+*/
 
-    tsp_helper(&r_distance, &r_path, n, first_city, first_city, avail_cities, distances, 0,  path_so_far, 0);
+//     recursive step:
+//         for each ac in available_cities:
+//             update curr_distance
+//             update curr_path
+// 
+//             distance, path = tsp_helper(ac, curr_distance, curr_path)
+//             if distance < best_distance:
+//                 update distance and path
+// 
+//         return best_distance, best_path
 
-    *shortest_distance = r_distance;
-    *path = cp_int_array(shortest_path, n);
 
-    free(shortest_path);
-    free(r_path);
-    free(cities);
-    free(avail_cities);
-    free(path_so_far);
+//     basecase:
+//         if no more available cities:
+//             return disance, path
+// 
+   int ac_len = n-(depth+1);
+   if (ac_len == 0) {
+      // return distance, path
+   }
+   
+   for (int i = 0; i < ac_len; i++) {
+      int ac = avail_cities[i];
+      int new_dist = distance + distances[cc][ac];
+//      int* new_avail_cities = 
+   }
+}
+
+
+/*
+*/
+void tsp() {
 }
 
 /*
