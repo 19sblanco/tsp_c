@@ -48,9 +48,20 @@ void test_add_1() {
     printf("=== adding 3 ===\n");
     int n = 5;
     int* arr = range(n);
-    int* newarr = arr_add(arr, n, 3);
+
+
+    // void _add(int* original, int* new, int item, int n) {
+
+
+    /// int* newarr = arr_add(arr, n, 3);
+    int new_arr[n+1];
+    _add(arr, new_arr, 3, n);
+
+
+
+    ///
     print_array(arr, n);
-    print_array(newarr, n+1);
+    print_array(new_arr, n+1);
     printf("=== ===\n");
 }
 
@@ -271,7 +282,7 @@ int main() {
     test_remove_1();
     test_remove_2();
     // test_almost_equal();
-    // test_add_1();
+    test_add_1();
     // test_cp_int_array_1();
     // test_zeros_1();
     // test_equals_1();

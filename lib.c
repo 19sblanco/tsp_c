@@ -180,7 +180,7 @@ test library functions
 
 
 /*
-remove an item from an array
+remove an item from an array where n is the size of original
 */
 void _remove(int* original, int* new, int item, int n) {
     int j = 0;
@@ -195,13 +195,57 @@ void _remove(int* original, int* new, int item, int n) {
     }
 }
 
+/*
+int* arr_add(int* arr, int n, int item) {
+    int* newarr = (int*)malloc(sizeof(int) * (n+1));
+    for (int i = 0; i < n; i++) {
+        newarr[i] = arr[i];
+    }
+    newarr[n] = item;
+    return newarr;
+}
+*/
+
+/*
+add an item to an array where n is the size of original
+*/
+void _add(int* original, int* new, int item, int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        new[i] = original[i];
+    }
+    new[i] = item;
+}
+
 
 /*
 */
 void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
 
+   int ac_len = n-(depth+1);
+   if (ac_len == 0) {
+      // return distance, path
+   }
+   
+   for (int i = 0; i < ac_len; i++) {
+      int ac = avail_cities[i];
+      double new_dist = distance + distances[cc][ac];
+      int new_ac[ac_len-1];
+      _remove(avail_cities, new_ac, ac, ac_len);
+      int new_path[depth];
+      _add(curr_path, new_path, ac, curr_path);
+      double best_distance;
+      int best_path[n];
+      tsp_helper(distances, &best_distance, &best_path, new_dist, new_path, ac, new_ac, n, depth+1);
+
+
+   }
+
 /*
-  this code assumes that a node knows the distance to get to it
+  this code assumes 
+      * that a node knows the distance to get to it
+      * that the starting city is 0 and the path already contains 0 when intitially going in
+
 */
 
 //     recursive step:
@@ -220,16 +264,7 @@ void tsp_helper(double** distances, double* rdistance, int**rpath, double distan
 //         if no more available cities:
 //             return disance, path
 // 
-   int ac_len = n-(depth+1);
-   if (ac_len == 0) {
-      // return distance, path
-   }
-   
-   for (int i = 0; i < ac_len; i++) {
-      int ac = avail_cities[i];
-      int new_dist = distance + distances[cc][ac];
-//      int* new_avail_cities = 
-   }
+
 }
 
 
