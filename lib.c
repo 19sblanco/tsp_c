@@ -196,17 +196,6 @@ void _remove(int* original, int* new, int item, int n) {
 }
 
 /*
-int* arr_add(int* arr, int n, int item) {
-    int* newarr = (int*)malloc(sizeof(int) * (n+1));
-    for (int i = 0; i < n; i++) {
-        newarr[i] = arr[i];
-    }
-    newarr[n] = item;
-    return newarr;
-}
-*/
-
-/*
 add an item to an array where n is the size of original
 */
 void _add(int* original, int* new, int item, int n) {
@@ -217,6 +206,16 @@ void _add(int* original, int* new, int item, int n) {
     new[i] = item;
 }
 
+/*
+copy an array of size n
+*/
+void _copy(int* original, int* new, int n) {
+    for (int i = 0; i < n; i++) {
+        new[i] = original[i];
+    }
+}
+
+
 
 /*
 */
@@ -224,8 +223,13 @@ void tsp_helper(double** distances, double* rdistance, int**rpath, double distan
 
    int ac_len = n-(depth+1);
    if (ac_len == 0) {
-      // return distance, path
+       *rdistance = s_d_sofar;
+       _copy(s_p_sofar, *rpath, n);
+       return;
    }
+
+   double s_d_sofar = -1.0;
+   int s_p_sofar[n];
    
    for (int i = 0; i < ac_len; i++) {
       int ac = avail_cities[i];
@@ -237,40 +241,22 @@ void tsp_helper(double** distances, double* rdistance, int**rpath, double distan
       double best_distance;
       int best_path[n];
       tsp_helper(distances, &best_distance, &best_path, new_dist, new_path, ac, new_ac, n, depth+1);
-
-
+      if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar)) {
+          s_d_sofar = best_distance;
+          _copy(best_path, s_p_sofar, n);
+      }
    }
-
-/*
-  this code assumes 
-      * that a node knows the distance to get to it
-      * that the starting city is 0 and the path already contains 0 when intitially going in
-
-*/
-
-//     recursive step:
-//         for each ac in available_cities:
-//             update curr_distance
-//             update curr_path
-// 
-//             distance, path = tsp_helper(ac, curr_distance, curr_path)
-//             if distance < best_distance:
-//                 update distance and path
-// 
-//         return best_distance, best_path
-
-
-//     basecase:
-//         if no more available cities:
-//             return disance, path
-// 
-
+   *rdistance = s_d_sofar;
+   _copy(s_p_sofar, *rpath, n);
 }
 
 
 /*
+void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
 */
-void tsp() {
+void tsp(*double distance, **int path, int* cities, int n) {
+    double** distances = get_distances(cities, n);
+
 }
 
 /*

@@ -36,13 +36,18 @@ int main() {
 
     clock_t start, end;
 
+    /*
     double distance = 0.0;
     int* path = (int*)malloc(sizeof(int) * n);
     city* cities = random_cities(n, threshold);
     double** distances = get_distances(cities, n);
+    // tsp(&distance, &path, distances, n);
+    */
 
     start = clock();
-    tsp(&distance, &path, distances, n);
+    double distance = 0.0;
+    int* path[n];
+    tsp(&distance, &path, cities);
     end = clock();
 
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
