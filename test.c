@@ -115,17 +115,16 @@ void test_equals_2() {
 void test_tsp_1() {
     printf("=== tsp1 ===\n");
     int n = 3;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    double true_distance = 12.0;
+    city cities[n];
     cities[0] = make_city(0.0, 0.0);
     cities[1] = make_city(0.0, 3.0);
     cities[2] = make_city(4.0, 0.0);
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
 
-    double true_distance = 12.0;
-    if (distance == true_distance) {
+    if (rdistance == true_distance) {
         printf("success!\n");
     }
     else {
@@ -138,18 +137,17 @@ void test_tsp_1() {
 void test_tsp_2() {
     printf("=== tsp2 ===\n");
     int n = 4;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    double true_distance = 3 + 6 + pow(97, .5) + 4;
+    city cities[n];
     cities[0] = make_city(0.0, 0.0);
     cities[1] = make_city(0.0, 3.0);
     cities[2] = make_city(4.0, 0.0);
     cities[3] = make_city(0.0, 9.0);
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
 
-    double true_distance = 3 + 6 + pow(97, .5) + 4;
-    if (distance == true_distance) {
+    if (rdistance == true_distance) {
         printf("success!\n");
     }
     else {
@@ -162,18 +160,17 @@ void test_tsp_2() {
 void test_tsp_3() {
     printf("=== tsp3 ===\n");
     int n = 4;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    city cities[n];
     cities[0] = make_city(0.0, 0.0);
     cities[1] = make_city(-1.0, 1.0);
     cities[2] = make_city(1.0, 1.0);
     cities[3] = make_city(0.0, -1.0);
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
-
     double true_distance = pow(2, .5) + 2 + get_distance(cities[3], cities[2]) + 1;
-    if (distance == true_distance) {
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
+
+    if (rdistance == true_distance) {
         printf("success!\n");
     }
     else {
@@ -186,17 +183,16 @@ void test_tsp_3() {
 void test_tsp_4() {
     printf("=== tsp4 ===\n");
     int n = 3;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    double true_distance = 0;
+    city cities[n];
     cities[0] = make_city(0.0, 0.0);
     cities[1] = make_city(0.0, 0.0);
     cities[2] = make_city(0.0, 0.0);
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
 
-    double true_distance = 0;
-    if (distance == true_distance) {
+    if (rdistance == true_distance) {
         printf("success!\n");
     }
     else {
@@ -208,19 +204,18 @@ void test_tsp_4() {
 void test_tsp_5() {
     printf("=== tsp5 ===\n");
     int n = 5;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    city cities[n];
     cities[0] = make_city(0.0, 0.0);
     cities[1] = make_city(-1.0, 2.0);
     cities[2] = make_city(1.0, 4.0);
     cities[3] = make_city(-1.0, 8.0);
     cities[4] = make_city(1.0, 12.0);
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
 
     double true_distance = 24.831310;
-    if (almost_equal(distance, true_distance) == 1) {
+    if (almost_equal(rdistance, true_distance) == 1) {
         printf("success!\n");
     }
     else {
@@ -232,7 +227,7 @@ void test_tsp_5() {
 void test_tsp_memory() {
     printf("=== memory stress test 12 cities ===\n");
     int n = 12;
-    city* cities = (city*) malloc(sizeof(city) * n);
+    city cities[n];
     city c0 = make_city(0.0, 0.0);
     city c1 = make_city(-1.0, 2.0);
     city c2 = make_city(1.0, 4.0);
@@ -257,10 +252,9 @@ void test_tsp_memory() {
     cities[9] = c9;
     cities[10] = c10;
     cities[11] = c11;
-    double** distances = get_distances(cities, n);
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    tsp(&distance, &path, distances, n);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
     printf("sucess!\n");
     printf("=== ===\n");
 
@@ -289,9 +283,9 @@ int main() {
     // test_equals_2();
     // test_tsp_memory();
     // random_cities_1();
-    // test_tsp_1();
-    // test_tsp_2();
-    // test_tsp_3();
-    // test_tsp_4();
-    // test_tsp_5();
+    test_tsp_1();
+    test_tsp_2();
+    test_tsp_3();
+    test_tsp_4();
+    test_tsp_5();
 }

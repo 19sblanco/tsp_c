@@ -215,16 +215,31 @@ void _copy(int* original, int* new, int n) {
     }
 }
 
+/*
+//////////////////
+todo: start on tests (check error messages when making)
+//////////////////
+*/
+
+
+/*
+given an array make its elements 0-(n-1)
+*/
+void _range(int* arr, int n){
+    for (int i = 0; i < n; i++) {
+        arr[i] = i;
+    }
+}
 
 
 /*
 */
-void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
+void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
 
    int ac_len = n-(depth+1);
    if (ac_len == 0) {
-       *rdistance = s_d_sofar;
-       _copy(s_p_sofar, *rpath, n);
+       *rdistance = curr_distance;
+       _copy(curr_path, rpath, n);
        return;
    }
 
@@ -233,30 +248,45 @@ void tsp_helper(double** distances, double* rdistance, int**rpath, double distan
    
    for (int i = 0; i < ac_len; i++) {
       int ac = avail_cities[i];
-      double new_dist = distance + distances[cc][ac];
+      double new_dist = curr_distance + distances[cc][ac];
       int new_ac[ac_len-1];
       _remove(avail_cities, new_ac, ac, ac_len);
-      int new_path[depth];
-      _add(curr_path, new_path, ac, curr_path);
+      int new_path[depth+1];
+      _add(curr_path, new_path, ac, depth);
       double best_distance;
       int best_path[n];
-      tsp_helper(distances, &best_distance, &best_path, new_dist, new_path, ac, new_ac, n, depth+1);
+      tsp_helper(distances, &best_distance, best_path, new_dist, new_path, ac, new_ac, n, depth+1);
       if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar)) {
           s_d_sofar = best_distance;
           _copy(best_path, s_p_sofar, n);
       }
    }
    *rdistance = s_d_sofar;
-   _copy(s_p_sofar, *rpath, n);
+   _copy(s_p_sofar, rpath, n);
 }
 
 
 /*
 void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
 */
-void tsp(*double distance, **int path, int* cities, int n) {
+void tsp(double* distance, int* path, city* cities, int n) {
     double** distances = get_distances(cities, n);
 
+
+    int c[n];
+    _range(c, n);
+    int avail_cities[n-1];
+    _remove(c, avail_cities, 0, n);
+    int path_so_far[n];
+
+    // used range because we only care about having the
+    // 0th index item of path_so_far to be 0
+    _range(path_so_far, n); 
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp_helper(distances, &rdistance, rpath, 0, path_so_far, 0, avail_cities, n, 0);
+    *distance = rdistance;
+    _copy(rpath, path, n);
 }
 
 /*
