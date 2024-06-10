@@ -35,17 +35,9 @@ int main() {
     double threshold = 1.0;
 
     clock_t start, end;
-
-    /*
-    double distance = 0.0;
-    int* path = (int*)malloc(sizeof(int) * n);
-    city* cities = random_cities(n, threshold);
-    double** distances = get_distances(cities, n);
-    // tsp(&distance, &path, distances, n);
-    */
-
     start = clock();
-    city* cities = random_cities(n, threshold);
+    city cities[n];
+    random_cities(cities, n, threshold);
     double rdistance = 0.0;
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
@@ -65,10 +57,11 @@ int main() {
     }
     */
 
-    double** distances = get_distances(cities, n);
+    double distances[n*n];
+    get_distances(distances, cities, n);
     printf("=== output ===\n");
     printf("distance: %f\npath: ", rdistance);
-    // print_cities(cities, rpath, n);
+    print_cities(cities, rpath, n);
     print_distances(distances, n);
     printf("Time used: %f seconds\n", cpu_time_used);
     return 0; 

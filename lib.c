@@ -15,8 +15,7 @@ city make_city(double x, double y) {
 }
 
 
-city* get_cities5(int n) {
-    city* cities = (city*) malloc(sizeof(city) * n);
+void get_cities(city* cities, int n) {
     city c0 = make_city(0.0, 0.0);
     city c1 = make_city(-1.0, 2.0);
     city c2 = make_city(1.0, 4.0);
@@ -28,7 +27,7 @@ city* get_cities5(int n) {
     city c8 = make_city(-130.0, -13.0);
     city c9 = make_city(690.0, 42.0);
     city c10 = make_city(100.0, 42.0);
-    // city c11 = make_city(6.0, 142.0);
+    city c11 = make_city(6.0, 142.0);
     cities[0] = c0;
     cities[1] = c1;
     cities[2] = c2;
@@ -40,19 +39,16 @@ city* get_cities5(int n) {
     cities[8] = c8;
     cities[9] = c9;
     cities[10] = c10;
-    // cities[11] = c11;
-    return cities;
+    cities[11] = c11;
 }
 
-city* get_cities3() {
-    city* cities = (city*) malloc(sizeof(city) * 3);
+void get_cities3(city* cities, int n) {
     city c0 = make_city(0.0, 0.0);
     city c1 = make_city(-1.0, 2.0);
     city c2 = make_city(1.0, 4.0);
     cities[0] = c0;
     cities[1] = c1;
     cities[2] = c2;
-    return cities;
 }
 
 void print_cities(city* cities, int* order, int n) {
@@ -78,28 +74,26 @@ double get_distance(city c1, city c2) {
 }
 
 
-double** get_distances(city* cities, int n) {
-    double** distances = (double**) malloc(sizeof(double*) * n);
+
+void get_distances(double*  distances, city* cities, int n) {
     for (int i = 0; i < n; i++) {
-        double* row = (double*) malloc(sizeof(double) * n);
-        distances[i] = row;
         for (int j = 0; j < n; j++) {
             double dist = get_distance(cities[i], cities[j]);
-            row[j] = dist;
+            distances[(i*n)+j] = dist;
         }
     }
-    return distances;
 }
 
-void print_distances(double** distances, int n) {
+void print_distances(double* distances, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            printf("%f ", distances[i][j]);
+            printf("%f ", distances[(i*n)+j]);
         }
         printf("\n\n");
     }
 }
 
+/*
 int* range(int n){
     int* arr = (int*)malloc(sizeof(int) * n);
     for (int i = 0; i < n; i++) {
@@ -146,6 +140,7 @@ int* arr_add(int* arr, int n, int item) {
     newarr[n] = item;
     return newarr;
 }
+*/
 
 /*
 test library functions
@@ -216,13 +211,6 @@ void _copy(int* original, int* new, int n) {
 }
 
 /*
-//////////////////
-todo: start on tests (check error messages when making)
-//////////////////
-*/
-
-
-/*
 given an array make its elements 0-(n-1)
 */
 void _range(int* arr, int n){
@@ -232,13 +220,14 @@ void _range(int* arr, int n){
 }
 
 
+
 /*
 */
-void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int fc, int* avail_cities, int n, int depth) {
+void tsp_helper(double* distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int fc, int* avail_cities, int n, int depth) {
 
    int ac_len = n-(depth+1);
    if (ac_len == 0) {
-       *rdistance = curr_distance + distances[cc][fc];
+       *rdistance = curr_distance + distances[(cc*n)+fc];
        _copy(curr_path, rpath, n);
        return;
    }
@@ -248,7 +237,7 @@ void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_d
    
    for (int i = 0; i < ac_len; i++) {
       int ac = avail_cities[i];
-      double new_dist = curr_distance + distances[cc][ac];
+      double new_dist = curr_distance + distances[(cc*n)+ac];
       int new_ac[ac_len-1];
       _remove(avail_cities, new_ac, ac, ac_len);
       int new_path[depth+1];
@@ -267,10 +256,12 @@ void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_d
 
 
 /*
-void tsp_helper(double** distances, double* rdistance, int**rpath, double distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
+given n city coordinates
+return the shortest path and the distance of that path
 */
 void tsp(double* distance, int* path, city* cities, int n) {
-    double** distances = get_distances(cities, n);
+    double distances[n*n];
+    get_distances(distances, cities, n);
 
 
     int c[n];
@@ -303,11 +294,11 @@ int within_range(city* cities, int n, city c, double threshold) {
     return 0;
 }
 
-city* random_cities(int n, double threshold) {
+
+void random_cities(city* cities, int n, double threshold) {
     srand(time(NULL));
     int x, y, in_range;
     city c;
-    city* cities = (city*) malloc(sizeof(city) * n);
     for (int i = 0; i < n; i++) {
         while (1) {
             x = rand();
@@ -320,8 +311,8 @@ city* random_cities(int n, double threshold) {
         }
         cities[i] = c;
     }
-    return cities;
 }
+
 
 int input_random_cities() {
     int number;

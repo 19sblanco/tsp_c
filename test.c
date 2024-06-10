@@ -8,7 +8,8 @@
 void test_remove_1() {
     printf("=== removing 3 ===\n");
     int n = 5;
-    int* arr = range(n);
+    int arr[n];
+    _range(arr, n);
     int new_arr[n-1];
     _remove(arr, new_arr, 3, n);
     print_array(arr, n);
@@ -19,7 +20,8 @@ void test_remove_1() {
 void test_remove_2() {
     printf("=== removing 1,2 ===\n");
     int n = 5;
-    int* arr = range(n);
+    int arr[n];
+    _range(arr, n);
     int new_arr0[n-1];
     int new_arr1[n-2];
     _remove(arr, new_arr0, 1, n);
@@ -47,7 +49,8 @@ void test_almost_equal() {
 void test_add_1() {
     printf("=== adding 3 ===\n");
     int n = 5;
-    int* arr = range(n);
+    int arr[n];
+    _range(arr, n);
 
 
     // void _add(int* original, int* new, int item, int n) {
@@ -68,42 +71,23 @@ void test_add_1() {
 void test_cp_int_array_1() {
     printf("=== copy 0 elements ===\n");
     int n = 0;
-    int* arr = range(n);
-    int* newarr = cp_int_array(arr, n);
+    int arr[n];
+    _range(arr, n);
+    int newarr[n];
+    _copy(arr, newarr, n);
     print_array(arr, n);
     print_array(newarr, n);
     printf("=== ===\n");
 }
 
-void test_zeros_1() {
-    printf("=== 5 element array w/ 0's ===\n");
-    int n = 5;
-    int* arr = zeros(n);
-    print_array(arr, n);
-    printf("=== ===\n");
-
-}
-
 void test_equals_1() {
     printf("=== test 2 array equal ===\n");
     int n = 5;
-    int* arr1 = range(n);
-    int* arr2 = range(n);
+    int arr1[n];
+    _range(arr1, n);
+    int arr2[n];
+    _range(arr2, n);
     if (arr_equal(arr1, arr2, n) == 1) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-    printf("=== ===\n");
-}
-
-void test_equals_2() {
-    printf("=== test 2 array not equal ===\n");
-    int n = 5;
-    int* arr1 = range(n);
-    int* arr2 = zeros(n);
-    if (arr_equal(arr1, arr2, n) == 0) {
         printf("success!\n");
     }
     else {
@@ -265,8 +249,10 @@ void random_cities_1() {
     printf("=== random cities 1 ===\n");
     int n = 5;
     double threshold = .01;
-    int* order = range(n);
-    city* cities = random_cities(n, threshold);
+    int order[n];
+    _range(order, n);
+    city cities[n];
+    random_cities(cities, n, threshold);
     print_cities(cities, order, n);
     printf("=== ===\n");
 }
@@ -274,19 +260,17 @@ void random_cities_1() {
 
 
 int main() {
-    test_remove_1();
-    test_remove_2();
-    // test_almost_equal();
-    test_add_1();
-    // test_cp_int_array_1();
-    // test_zeros_1();
-    // test_equals_1();
-    // test_equals_2();
-    // random_cities_1();
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
-    test_tsp_memory();
+    test_remove_1();
+    test_remove_2();
+    test_almost_equal();
+    test_add_1();
+    test_cp_int_array_1();
+    test_equals_1();
+    random_cities_1();
+    //test_tsp_memory();
 }
