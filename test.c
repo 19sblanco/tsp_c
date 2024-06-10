@@ -130,6 +130,7 @@ void test_tsp_1() {
     else {
         printf("fail!\n");
     }
+    printf("12.0 != %f\n", rdistance);
     printf("=== ===\n");
 }
 
@@ -281,11 +282,11 @@ int main() {
     // test_zeros_1();
     // test_equals_1();
     // test_equals_2();
-    // test_tsp_memory();
     // random_cities_1();
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
+    test_tsp_memory();
 }

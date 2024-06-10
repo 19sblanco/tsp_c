@@ -234,11 +234,11 @@ void _range(int* arr, int n){
 
 /*
 */
-void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int* avail_cities, int n, int depth) {
+void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int fc, int* avail_cities, int n, int depth) {
 
    int ac_len = n-(depth+1);
    if (ac_len == 0) {
-       *rdistance = curr_distance;
+       *rdistance = curr_distance + distances[cc][fc];
        _copy(curr_path, rpath, n);
        return;
    }
@@ -255,7 +255,7 @@ void tsp_helper(double** distances, double* rdistance, int* rpath, double curr_d
       _add(curr_path, new_path, ac, depth);
       double best_distance;
       int best_path[n];
-      tsp_helper(distances, &best_distance, best_path, new_dist, new_path, ac, new_ac, n, depth+1);
+      tsp_helper(distances, &best_distance, best_path, new_dist, new_path, ac, fc, new_ac, n, depth+1);
       if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar)) {
           s_d_sofar = best_distance;
           _copy(best_path, s_p_sofar, n);
@@ -284,7 +284,7 @@ void tsp(double* distance, int* path, city* cities, int n) {
     _range(path_so_far, n); 
     double rdistance = 0.0;
     int rpath[n];
-    tsp_helper(distances, &rdistance, rpath, 0, path_so_far, 0, avail_cities, n, 0);
+    tsp_helper(distances, &rdistance, rpath, 0, path_so_far, 0, 0, avail_cities, n, 0);
     *distance = rdistance;
     _copy(rpath, path, n);
 }

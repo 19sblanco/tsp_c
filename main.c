@@ -53,12 +53,22 @@ int main() {
 
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-
+    /*
+    void print_cities(city* cities, int* order, int n) {
+        int idx;
+        for (int i = 0; i < n; i++) {
+            idx = order[i];
+            city c = cities[idx];
+            printf("(%f, %f) -> ", c.x, c.y);
+        }
+        printf("(%f, %f) \n", cities[order[0]].x, cities[order[0]].y);
+    }
+    */
 
     double** distances = get_distances(cities, n);
     printf("=== output ===\n");
     printf("distance: %f\npath: ", rdistance);
-    print_cities(cities, rpath, n);
+    // print_cities(cities, rpath, n);
     print_distances(distances, n);
     printf("Time used: %f seconds\n", cpu_time_used);
     return 0; 
