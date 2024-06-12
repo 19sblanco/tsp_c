@@ -5,7 +5,6 @@
 
 
 /*
-
 be able to input cities (brain storm potential inputs)
     * file input
      
@@ -19,8 +18,6 @@ tsp_C:
     time: 23.480295
     cities: 13
     time: 265.090176
-
-
 */
 
 
