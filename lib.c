@@ -224,7 +224,6 @@ void _range(int* arr, int n){
 /*
 */
 void tsp_helper(double* distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int fc, int* avail_cities, int n, int depth) {
-
    int ac_len = n-(depth+1);
    if (ac_len == 0) {
        *rdistance = curr_distance + distances[(cc*n)+fc];
