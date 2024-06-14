@@ -13,11 +13,15 @@ tsp_C:
     cities: 12
     time: 808.4938039779663
 
-  tsp written in C
+  tsp written in C (on heap)
     cities: 12
     time: 23.480295
     cities: 13
     time: 265.090176
+
+  tsp written in C (on stack)
+    cities: 12
+    time: 
 */
 
 
@@ -41,18 +45,6 @@ int main() {
     end = clock();
 
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-
-    /*
-    void print_cities(city* cities, int* order, int n) {
-        int idx;
-        for (int i = 0; i < n; i++) {
-            idx = order[i];
-            city c = cities[idx];
-            printf("(%f, %f) -> ", c.x, c.y);
-        }
-        printf("(%f, %f) \n", cities[order[0]].x, cities[order[0]].y);
-    }
-    */
 
     double distances[n*n];
     get_distances(distances, cities, n);

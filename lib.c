@@ -262,21 +262,16 @@ void tsp(double* distance, int* path, city* cities, int n) {
     double distances[n*n];
     get_distances(distances, cities, n);
 
-
     int c[n];
     _range(c, n);
     int avail_cities[n-1];
     _remove(c, avail_cities, 0, n);
     int path_so_far[n];
 
-    // used range because we only care about having the
-    // 0th index item of path_so_far to be 0
     _range(path_so_far, n); 
     double rdistance = 0.0;
-    int rpath[n];
-    tsp_helper(distances, &rdistance, rpath, 0, path_so_far, 0, 0, avail_cities, n, 0);
+    tsp_helper(distances, &rdistance, path, 0, path_so_far, 0, 0, avail_cities, n, 0);
     *distance = rdistance;
-    _copy(rpath, path, n);
 }
 
 /*
