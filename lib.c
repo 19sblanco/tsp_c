@@ -14,43 +14,6 @@ city make_city(double x, double y) {
     return c;
 }
 
-
-void get_cities(city* cities, int n) {
-    city c0 = make_city(0.0, 0.0);
-    city c1 = make_city(-1.0, 2.0);
-    city c2 = make_city(1.0, 4.0);
-    city c3 = make_city(-1.0, 8.0);
-    city c4 = make_city(1.0, 12.0);
-    city c5 = make_city(100.0, 12.0);
-    city c6 = make_city(12.0, 12.0);
-    city c7 = make_city(-13.0, -13.0);
-    city c8 = make_city(-130.0, -13.0);
-    city c9 = make_city(690.0, 42.0);
-    city c10 = make_city(100.0, 42.0);
-    city c11 = make_city(6.0, 142.0);
-    cities[0] = c0;
-    cities[1] = c1;
-    cities[2] = c2;
-    cities[3] = c3;
-    cities[4] = c4;
-    cities[5] = c5;
-    cities[6] = c6;
-    cities[7] = c7;
-    cities[8] = c8;
-    cities[9] = c9;
-    cities[10] = c10;
-    cities[11] = c11;
-}
-
-void get_cities3(city* cities, int n) {
-    city c0 = make_city(0.0, 0.0);
-    city c1 = make_city(-1.0, 2.0);
-    city c2 = make_city(1.0, 4.0);
-    cities[0] = c0;
-    cities[1] = c1;
-    cities[2] = c2;
-}
-
 void print_cities(city* cities, int* order, int n) {
     for (int i = 0; i < n; i++) {
         city c = cities[order[i]-1];
@@ -75,8 +38,6 @@ double get_distance(city c1, city c2) {
     return pow( pow(c1.x-c2.x, 2) + pow(c1.y-c2.y, 2), .5);
 }
 
-
-
 void get_distances(double*  distances, city* cities, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -94,38 +55,6 @@ void print_distances(double* distances, int n) {
         printf("\n\n");
     }
 }
-
-/*
-test library functions
-*/
-
-int arr_equal(int* arr1, int* arr2, int n) {
-    for (int i = 0; i < n; i++) {
-        if (arr1[i] != arr2[i]) {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-double rando() {
-    double rand_double = (double)rand() / RAND_MAX;
-    return rand_double;
-}
-
-int almost_equal(double a, double b) {
-    double threshold = .1;
-    if ((a > (b-threshold)) && (a < (b+threshold))) {
-        return 1;
-    }
-    else return 0;
-}
-
-
-/*
-test library functions
-*/
-
 
 /*
 remove an item from an array where n is the size of original
@@ -172,9 +101,9 @@ void _range(int* arr, int n){
     }
 }
 
-
-
 /*
+The recursive tsp function 
+This uses a method called backtracking,
 */
 void tsp_helper(double* distances, double* rdistance, int* rpath, double curr_distance, int* curr_path, int cc, int fc, int* avail_cities, int n, int depth) {
    int ac_len = n-(depth+1);
@@ -241,6 +170,11 @@ int within_range(city* cities, int n, city c, double threshold) {
 }
 
 
+/*
+creates random cities and stores them in the cities array
+if the cities are withing a certain distance of one another,
+create another random city and try again
+*/
 void random_cities(city* cities, int n, double threshold) {
     srand(time(NULL));
     int x, y, in_range;
@@ -260,6 +194,9 @@ void random_cities(city* cities, int n, double threshold) {
 }
 
 
+/*
+receive the number of cities that the user wants
+*/
 int input_random_cities() {
     int number;
     printf("Enter an integer: ");

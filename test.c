@@ -4,7 +4,72 @@
 #include "lib.c"
 
 
-// todo test remove function with various inputs
+/*
+////////////////////////////////////
+helper functions
+*/
+void get_cities(city* cities, int n) {
+    city c0 = make_city(0.0, 0.0);
+    city c1 = make_city(-1.0, 2.0);
+    city c2 = make_city(1.0, 4.0);
+    city c3 = make_city(-1.0, 8.0);
+    city c4 = make_city(1.0, 12.0);
+    city c5 = make_city(100.0, 12.0);
+    city c6 = make_city(12.0, 12.0);
+    city c7 = make_city(-13.0, -13.0);
+    city c8 = make_city(-130.0, -13.0);
+    city c9 = make_city(690.0, 42.0);
+    city c10 = make_city(100.0, 42.0);
+    city c11 = make_city(6.0, 142.0);
+    cities[0] = c0;
+    cities[1] = c1;
+    cities[2] = c2;
+    cities[3] = c3;
+    cities[4] = c4;
+    cities[5] = c5;
+    cities[6] = c6;
+    cities[7] = c7;
+    cities[8] = c8;
+    cities[9] = c9;
+    cities[10] = c10;
+    cities[11] = c11;
+}
+
+void get_cities3(city* cities, int n) {
+    city c0 = make_city(0.0, 0.0);
+    city c1 = make_city(-1.0, 2.0);
+    city c2 = make_city(1.0, 4.0);
+    cities[0] = c0;
+    cities[1] = c1;
+    cities[2] = c2;
+}
+
+int arr_equal(int* arr1, int* arr2, int n) {
+    for (int i = 0; i < n; i++) {
+        if (arr1[i] != arr2[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+double rando() {
+    double rand_double = (double)rand() / RAND_MAX;
+    return rand_double;
+}
+
+int almost_equal(double a, double b) {
+    double threshold = .1;
+    if ((a > (b-threshold)) && (a < (b+threshold))) {
+        return 1;
+    }
+    else return 0;
+}
+/*
+helper functions
+////////////////////////////////////
+*/
+
 void test_remove_1() {
     printf("=== removing 3 ===\n");
     int n = 5;
@@ -272,5 +337,5 @@ int main() {
     test_cp_int_array_1();
     test_equals_1();
     random_cities_1();
-    //test_tsp_memory();
+    // test_tsp_memory();
 }

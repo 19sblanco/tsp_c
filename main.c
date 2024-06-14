@@ -5,9 +5,6 @@
 
 
 /*
-be able to input cities (brain storm potential inputs)
-    * file input
-     
 tsp_C:
   tsp written in python
     cities: 12
@@ -21,7 +18,9 @@ tsp_C:
 
   tsp written in C (on stack)
     cities: 12
-    time: 
+    time: 13.547940
+    cities:13
+    time: 221.827008
 */
 
 
@@ -45,16 +44,9 @@ int main() {
     end = clock();
 
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-
-
-    //////
-    
-    print_array(rpath, n);
-
-    //////
-
     double distances[n*n];
     get_distances(distances, cities, n);
+
     printf("=== output ===\n");
     printf("distance: %f\npath: ", rdistance);
     print_cities(cities, rpath, n);
