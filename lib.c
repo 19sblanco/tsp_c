@@ -52,13 +52,15 @@ void get_cities3(city* cities, int n) {
 }
 
 void print_cities(city* cities, int* order, int n) {
-    int idx;
     for (int i = 0; i < n; i++) {
-        idx = order[i];
-        city c = cities[idx];
-        printf("(%f, %f) -> ", c.x, c.y);
+        city c = cities[order[i]-1];
+        if (i == (n-1)) {
+            printf("(%f, %f)", c.x, c.y);
+        }
+        else {
+            printf("(%f, %f) -> ", c.x, c.y);
+        }
     }
-    printf("(%f, %f) \n", cities[order[0]].x, cities[order[0]].y);
 
 }
 
@@ -92,55 +94,6 @@ void print_distances(double* distances, int n) {
         printf("\n\n");
     }
 }
-
-/*
-int* range(int n){
-    int* arr = (int*)malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++) {
-        arr[i] = i;
-    }
-    return arr;
-}
-
-int* zeros(int n) {
-    int* arr = (int*)malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++) {
-        arr[i] = 0;
-    }
-    return arr;
-
-}
-
-int* cp_int_array(int* arr, int n) {
-    int* cparr = (int*)malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++) {
-        cparr[i] = arr[i];
-    }
-    return cparr;
-}
-
-int* arr_remove(int* arr, int n, int item) {
-    int* newarr = (int*)malloc(sizeof(int) * (n-1));
-    int j = 0;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == item) {
-            continue;
-        }
-        newarr[j] = arr[i];
-        j++;
-    }
-    return newarr;
-}
-
-int* arr_add(int* arr, int n, int item) {
-    int* newarr = (int*)malloc(sizeof(int) * (n+1));
-    for (int i = 0; i < n; i++) {
-        newarr[i] = arr[i];
-    }
-    newarr[n] = item;
-    return newarr;
-}
-*/
 
 /*
 test library functions
@@ -267,11 +220,10 @@ void tsp(double* distance, int* path, city* cities, int n) {
     int avail_cities[n-1];
     _remove(c, avail_cities, 0, n);
     int path_so_far[n];
-
     _range(path_so_far, n); 
-    double rdistance = 0.0;
-    tsp_helper(distances, &rdistance, path, 0, path_so_far, 0, 0, avail_cities, n, 0);
-    *distance = rdistance;
+
+    tsp_helper(distances, distance, path, 0, path_so_far, 0, 0, avail_cities, n, 0);
+    path[n-1] = 0;
 }
 
 /*
@@ -314,3 +266,4 @@ int input_random_cities() {
     scanf("%d", &number);
     return number;
 }
+
