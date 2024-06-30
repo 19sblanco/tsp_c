@@ -144,30 +144,6 @@ void tsp(double* distance, int* path, city* cities, int n) {
     double distances[n*n];
     get_distances(distances, cities, n);
 
-    
-    int c[n];
-    _range(c, n);
-
-    for (int i = 1; i < n; i++) {
-        double new_dist = distances[i];
-        // remove one from available cities
-        int temp[n-1];
-        _remove(c, temp, 0, n);
-        int avail_cities[n-2];
-        _remove(temp, avail_cities, i, n-1);
-        // adds to path
-        int path[2];
-        path[0] = 0;
-        path[1] = i;
-        // sets up retrun variables
-            // TODO:
-            // keep running total for distance
-            // and each subsequent path for that distance
-        // calls func
-    }
-    exit(0);
-    ////////
-
     int c[n];
     _range(c, n);
     int avail_cities[n-1];
