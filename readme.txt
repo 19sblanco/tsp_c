@@ -12,8 +12,11 @@ Cities:
 ## Different versions
 *I complete different versions of this program through github branches. To look at the code for another version change the branch*
 
-**Version 1.0** 
+**Version 1.0** (completed)
 - Completed working program
-**Version 2.0**
+**Version 2.0** (completed)
 - Handled all memory in the stack (with no heap memory usage)
-
+**Version 3.0** (work in progress)
+- stop searching down a path if that path is longer than the current best
+**Version 4.0** (work in progress)
+- add threads
