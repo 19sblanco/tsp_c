@@ -19,7 +19,10 @@ Cities:
 - Handled all memory in the stack (with no heap memory usage)
 
 **Version 3.0** (work in progress)
-- stop searching down a path if that path is longer than the current best
+- Use bitwise operations instead of arrays
 
 **Version 4.0** (work in progress)
-- add threads
+- Stop searching down a path if that path is longer than the current best
+
+**Version 5.0** (work in progress)
+- Add threads
