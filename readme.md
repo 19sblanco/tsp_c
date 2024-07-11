@@ -1,4 +1,4 @@
-#Traveling salesman problem implemented in C
+# Traveling salesman problem implemented in C
 *using as few libraries as possible*
 
 ## algorithm
