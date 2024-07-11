@@ -1,5 +1,19 @@
-Traveling salesman problem implimented in C using as few libraries as possible
+#Traveling salesman problem implemented in C
+*using as few libraries as possible*
 
-I did versioning through github branches. v2.0 has tsp done entirely through the stack
+## algorithm
+I used a backtracking approach. Backtracking searches down all possible paths for a given set of cities then returns the most optimal solution (shortest distance path).
 
-for v3.0 I'm going to stop searching down a path if that path is longer than the current best path
+## data representation
+Cities: 
+    - get inputted as coordinates (x, y) 
+    - once inputted, the program uses the coordinates of each cities to calculate a distance matrix
+
+## Different versions
+*I complete different versions of this program through github branches. To look at the code for another version change the branch*
+
+**Version 1.0** 
+- Completed working program
+**Version 2.0**
+- Handled all memory in the stack (with no heap memory usage)
+
