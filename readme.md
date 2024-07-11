@@ -1,10 +1,10 @@
 # Traveling salesman problem implemented in C
 *using as few libraries as possible*
 
-## algorithm
+## Algorithm
 I used a backtracking approach. Backtracking searches down all possible paths for a given set of cities then returns the most optimal solution (shortest distance path).
 
-## data representation
+## Data Representation
 Cities: 
     - get inputted as coordinates (x, y) 
     - once inputted, the program uses the coordinates of each cities to calculate a distance matrix
@@ -14,9 +14,12 @@ Cities:
 
 **Version 1.0** (completed)
 - Completed working program
+
 **Version 2.0** (completed)
 - Handled all memory in the stack (with no heap memory usage)
+
 **Version 3.0** (work in progress)
 - stop searching down a path if that path is longer than the current best
+
 **Version 4.0** (work in progress)
 - add threads
