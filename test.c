@@ -179,7 +179,6 @@ void test_tsp_1() {
     else {
         printf("fail!\n");
     }
-    printf("12.0 != %f\n", rdistance);
     printf("=== ===\n");
 }
 
