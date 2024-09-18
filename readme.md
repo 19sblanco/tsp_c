@@ -18,7 +18,7 @@ Cities:
 **Version 2.0** (completed)
 - Handled all memory in the stack (with no heap memory usage)
 
-**Version 3.0** (work in progress)
+**Version 3.0** (completed)
 - Stop searching down a path if that path is longer than the current best
 
 **Version 4.0** (work in progress)
