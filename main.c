@@ -21,6 +21,12 @@ tsp_C:
     time: 13.547940
     cities:13
     time: 221.827008
+
+  tsp so that search down a path longer than the current best is haulted
+    cities: 12
+    time:
+    cities 13
+    time:
 */
 
 
@@ -31,6 +37,8 @@ traveling salesman
 n - number of cities (make sure get cities matches this)
 */
 int main() { 
+
+
     int n = input_random_cities();
     double threshold = 1.0;
 
@@ -52,6 +60,8 @@ int main() {
     print_cities(cities, rpath, n);
     print_distances(distances, n);
     printf("Time used: %f seconds\n", cpu_time_used);
+    
+    system("paplay /usr/share/sounds/freedesktop/stereo/complete.oga"); // play a bell noise when program is haulted
     return 0; 
 }
 

@@ -186,14 +186,14 @@ return the shortest path and the distance of that path
 */
 void tsp(double *distance, int *path, city *cities, int num_cities)
 {
+    // set globals
     best_so_far = DBL_MAX;
-
     n = num_cities;
-    // use the global variable distances to clean up tsp_helper signature
     double d[n * n];
     distances = d;
     get_distances(distances, cities, n);
 
+    // set initial parameters
     int c[n];
     _range(c, n);
     int avail_cities[n - 1];
