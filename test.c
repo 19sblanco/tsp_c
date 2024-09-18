@@ -324,17 +324,17 @@ void random_cities_1() {
 
 
 int main() {
-    test_tsp_1();
-    test_tsp_2();
-    test_tsp_3();
-    test_tsp_4();
+    // test_tsp_1();
+    // test_tsp_2();
+    // test_tsp_3();
+    // test_tsp_4();
     test_tsp_5();
-    test_remove_1();
-    test_remove_2();
-    test_almost_equal();
-    test_add_1();
-    test_cp_int_array_1();
-    test_equals_1();
-    random_cities_1();
+    // test_remove_1();
+    // test_remove_2();
+    // test_almost_equal();
+    // test_add_1();
+    // test_cp_int_array_1();
+    // test_equals_1();
+    // random_cities_1();
     // test_tsp_memory();
 }

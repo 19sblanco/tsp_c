@@ -137,10 +137,21 @@ This uses a method called backtracking,
 */
 void tsp_helper(double *rdistance, int *rpath, double curr_distance, int *curr_path, int cc, int *avail_cities, int depth)
 {
+    // printf("%f\n", curr_distance);
+    if (curr_distance > best_so_far) {
+        *rdistance = curr_distance;
+        return;
+    }
+
     int ac_len = n - (depth + 1);
     if (ac_len == 0)
     {
         *rdistance = curr_distance + distances[(cc * n) + fc];
+        if (*rdistance < best_so_far) {
+            best_so_far = *rdistance;
+        }
+        // printf("%f\n", curr_distance + distances[(cc * n) + fc]);
+        // printf("best_so_far: %f\n", best_so_far);
         _copy(curr_path, rpath, n);
         return;
     }
