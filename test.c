@@ -324,10 +324,10 @@ void random_cities_1() {
 
 
 int main() {
-    // test_tsp_1();
-    // test_tsp_2();
-    // test_tsp_3();
-    // test_tsp_4();
+    test_tsp_1();
+    test_tsp_2();
+    test_tsp_3();
+    test_tsp_4();
     test_tsp_5();
     // test_remove_1();
     // test_remove_2();

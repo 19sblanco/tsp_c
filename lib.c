@@ -126,7 +126,7 @@ void _range(int *arr, int n)
 }
 
 // global variables for the tsp and tsp_helper functions below
-double best_so_far = DBL_MAX;
+double best_so_far;
 int fc = 0; // first city will always have an id of 0
 double* distances; // distance matrix for each city
 int n; // number of cities
@@ -186,6 +186,8 @@ return the shortest path and the distance of that path
 */
 void tsp(double *distance, int *path, city *cities, int num_cities)
 {
+    best_so_far = DBL_MAX;
+
     n = num_cities;
     // use the global variable distances to clean up tsp_helper signature
     double d[n * n];
