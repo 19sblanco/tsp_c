@@ -273,6 +273,35 @@ void test_tsp_5() {
     printf("=== ===\n");
 }
 
+void test_tsp_6() {
+    printf("=== tsp6 ===\n");
+    int n = 10;
+    city cities[n];
+    cities[0] = make_city(0.0, 0.0);
+    cities[1] = make_city(0.0, 1.0);
+    cities[2] = make_city(0.0, 2.0);
+    cities[3] = make_city(0.0, 3.0);
+    cities[4] = make_city(0.0, 4.0);
+    cities[5] = make_city(0.0, 5.0);
+    cities[6] = make_city(0.0, 6.0);
+    cities[7] = make_city(0.0, 7.0);
+    cities[8] = make_city(0.0, 8.0);
+    cities[9] = make_city(0.0, 9.0);
+    double rdistance = 0.0;
+    int rpath[n];
+    tsp(&rdistance, rpath, cities, n);
+    
+    double true_distance = 18.0;
+    if (almost_equal(rdistance, true_distance) == 1) {
+        printf("sucess!\n");
+    }
+    else {
+        printf("fail!\n");
+    }
+
+    printf("=== ===\n");
+}
+
 void test_tsp_memory() {
     printf("=== memory stress test 12 cities ===\n");
     int n = 12;
@@ -329,6 +358,7 @@ int main() {
     test_tsp_3();
     test_tsp_4();
     test_tsp_5();
+    test_tsp_6();
     // test_remove_1();
     // test_remove_2();
     // test_almost_equal();

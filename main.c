@@ -24,9 +24,15 @@ tsp_C:
 
   tsp so that search down a path longer than the current best is haulted
     cities: 12
-    time:
-    cities 13
-    time:
+    time: 0.536989
+    cities: 13
+    time: 2.537332
+    cities: 14
+    time: 9.415950 
+    cities: 15
+    time: 14.350740 
+    cities: 16
+    time: 110.076049
 */
 
 
