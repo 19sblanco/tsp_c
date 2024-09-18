@@ -43,8 +43,6 @@ traveling salesman
 n - number of cities (make sure get cities matches this)
 */
 int main() { 
-
-
     int n = input_random_cities();
     double threshold = 1.0;
 
