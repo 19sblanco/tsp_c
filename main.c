@@ -33,6 +33,8 @@ tsp_C:
     time: 14.350740 
     cities: 16
     time: 110.076049
+    cities: 18
+    time: 3381.791545
 */
 
 
