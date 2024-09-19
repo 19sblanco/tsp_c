@@ -53,8 +53,12 @@ Cities:
     - time: 110.076049
 
 **Version 4.0** (work in progress)
-- Use bitwise operations instead of arrays
+- use memoization to store work so that I don't have to recompute redundant values
+
 
 **Version 5.0** (work in progress)
+- Use bitwise operations instead of arrays
+
+**Version 6.0** (work in progress)
 - Add threads
 
