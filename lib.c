@@ -159,6 +159,14 @@ This uses a method called backtracking,
 */
 unsigned int tsp_helper(unsigned int cc, unsigned int ac) 
 {
+    /*
+    base case:
+
+    recursive step:
+
+    
+    */
+
     // if (curr_distance > best_so_far) {
     //     *rdistance = curr_distance;
     //     return;
@@ -214,12 +222,14 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
     double d[n * n];
     distances = d;
     get_distances(distances, cities, n);
+    int memo[n][1 << n]; // todo figure out memo size 
 
     unsigned int available_cities = set_available_cities(n);
     unsigned int current_city = 0;
     unsigned int distance = tsp_helper(current_city, available_cities);
 
-    // tsp_helper(distance, path, 0, path_so_far, 0, available_cities, 0);
+    *rdistance = distance;
+
 }
 
 /*
