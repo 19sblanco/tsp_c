@@ -125,6 +125,28 @@ void _range(int *arr, int n)
     }
 }
 
+/*
+set available cities where each bit represents if a city
+has been visited or not. A bit of:
+    1 represents a city being available to visit
+    0 represents a city not being avaiable to visit
+
+*/
+unsigned int set_available_cities(unsigned int n) {
+    int ret = 0;
+    for (int i = 1; i < n; i++) {
+        ret |= (1 << i);
+    }
+    return ret;
+}
+
+void printBinary(unsigned int num) {
+    for (int i = 31; i >= 0; i--) {
+        printf("%d", (num >> i) & 1);
+    }
+    printf(" (%u)\n", num);
+}
+
 // global variables for the tsp and tsp_helper functions below
 double best_so_far;
 int fc = 0; // first city will always have an id of 0
@@ -135,56 +157,56 @@ int n; // number of cities
 The recursive tsp function
 This uses a method called backtracking,
 */
-void tsp_helper(double *rdistance, int *rpath, double curr_distance, int *curr_path, int cc, int *avail_cities, int depth)
+unsigned int tsp_helper(unsigned int cc, unsigned int ac) 
 {
-    // printf("%f\n", curr_distance);
-    if (curr_distance > best_so_far) {
-        *rdistance = curr_distance;
-        return;
-    }
+    // if (curr_distance > best_so_far) {
+    //     *rdistance = curr_distance;
+    //     return;
+    // }
 
-    int ac_len = n - (depth + 1);
-    if (ac_len == 0)
-    {
-        *rdistance = curr_distance + distances[(cc * n) + fc];
-        if (*rdistance < best_so_far) {
-            best_so_far = *rdistance;
-        }
-        // printf("%f\n", curr_distance + distances[(cc * n) + fc]);
-        // printf("best_so_far: %f\n", best_so_far);
-        _copy(curr_path, rpath, n);
-        return;
-    }
+    // int ac_len = n - (depth + 1);
+    // if (ac_len == 0)
+    // {
+    //     *rdistance = curr_distance + distances[(cc * n) + fc];
+    //     if (*rdistance < best_so_far) {
+    //         best_so_far = *rdistance;
+    //     }
+    //     _copy(curr_path, rpath, n);
+    //     return;
+    // }
 
-    double s_d_sofar = -1.0;
-    int s_p_sofar[n];
+    // double s_d_sofar = -1.0;
+    // int s_p_sofar[n];
 
-    for (int i = 0; i < ac_len; i++)
-    {
-        int ac = avail_cities[i];
-        double new_dist = curr_distance + distances[(cc * n) + ac];
-        int new_ac[ac_len - 1];
-        _remove(avail_cities, new_ac, ac, ac_len);
-        int new_path[depth + 1];
-        _add(curr_path, new_path, ac, depth);
-        double best_distance;
-        int best_path[n];
-        tsp_helper(&best_distance, best_path, new_dist, new_path, ac, new_ac, depth + 1);
-        if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar))
-        {
-            s_d_sofar = best_distance;
-            _copy(best_path, s_p_sofar, n);
-        }
-    }
-    *rdistance = s_d_sofar;
-    _copy(s_p_sofar, rpath, n);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     // int ac = avail_cities[i];
+    //     if (!((avail_cities >> i) & 1)) {
+    //         continue;
+    //     }
+    //     double new_dist = curr_distance + distances[(cc * n) + ac];
+    //     int new_ac[ac_len - 1];
+    //     _remove(avail_cities, new_ac, ac, ac_len);
+    //     int new_path[depth + 1];
+    //     _add(curr_path, new_path, ac, depth);
+    //     double best_distance;
+    //     int best_path[n];
+    //     tsp_helper(&best_distance, best_path, new_dist, new_path, ac, new_ac, depth + 1);
+    //     if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar))
+    //     {
+    //         s_d_sofar = best_distance;
+    //         _copy(best_path, s_p_sofar, n);
+    //     }
+    // }
+    // *rdistance = s_d_sofar;
+    // _copy(s_p_sofar, rpath, n);
 }
 
 /*
 given n city coordinates
 return the shortest path and the distance of that path
 */
-void tsp(double *distance, int *path, city *cities, int num_cities)
+void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
 {
     // set globals
     best_so_far = DBL_MAX;
@@ -193,16 +215,11 @@ void tsp(double *distance, int *path, city *cities, int num_cities)
     distances = d;
     get_distances(distances, cities, n);
 
-    // set initial parameters
-    int c[n];
-    _range(c, n);
-    int avail_cities[n - 1];
-    _remove(c, avail_cities, 0, n);
-    int path_so_far[n];
-    _range(path_so_far, n);
+    unsigned int available_cities = set_available_cities(n);
+    unsigned int current_city = 0;
+    unsigned int distance = tsp_helper(current_city, available_cities);
 
-    tsp_helper(distance, path, 0, path_so_far, 0, avail_cities, 0);
-    path[n - 1] = 0;
+    // tsp_helper(distance, path, 0, path_so_far, 0, available_cities, 0);
 }
 
 /*
