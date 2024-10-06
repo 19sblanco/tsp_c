@@ -4,7 +4,10 @@
 
 ## Algorithm
 
-The implementation uses a backtracking approach. Backtracking searches down all possible paths for a given set of cities, then returns the most optimal solution (shortest distance path).
+I used different algorithms depending on the version. The Beta, v1.0, v2.0 all use a brute force approach. V3.0 uses a more sophisticated brute force approach called 
+{beta, v1.0, v2.0} -> recursive naive brute force (does every possibility)
+{v3.0} -> recursive backtracking approach (stop going down paths you know aren't the shortest)
+{v4.0} -> dynamic  programming approach w/ bitwise operations (don't redo work and utilize fast speed of bitwise operations)
 
 ## Data Representation
 
@@ -17,7 +20,6 @@ Cities:
 *I completed different versions of this program through GitHub branches. To look at the code for another version, change the branch.*
 
 ### Version Beta 
-- ✅ Working program in Python
 - [Python repository](https://github.com/19sblanco/tsp_python)
 
 | Cities | Time (seconds) |
@@ -25,15 +27,21 @@ Cities:
 | 12 | 808.4938039779663 |
 
 ### Version 1.0 baseline
-- ✅ Completed working program
 
 | Cities | Time (seconds) |
 |--------|----------------|
 | 12 | 23.480295 |
 | 13 | 265.090176 |
 
+#### speed up table
+| Version | Multiplier |
+| ------- | ---------- |
+| Beta | 34.43 |
+
+
+
+
 ### Version 2.0 
-- ✅ Handled all memory in the stack (with no heap memory usage)
 
 | Cities | Time (seconds) |
 |--------|----------------|
@@ -41,7 +49,6 @@ Cities:
 | 13 | 221.827008 |
 
 ### Version 3.0 
-- ✅ Stop searching down a path if that path is longer than the current best
 
 | Cities | Time (seconds) |
 |--------|----------------|
@@ -53,7 +60,6 @@ Cities:
 
 
 #### Version 4.0
-- ✅  Use Dynamic programming and bitwise operations 
 
 | Cities | Time (seconds) |
 |--------|----------------|
