@@ -65,6 +65,17 @@ int almost_equal(double a, double b) {
     }
     else return 0;
 }
+
+void assert_equal(int n, double expected, double got) {
+    printf("=== %d ===\n", n);
+    if (expected == got) {
+        printf("success!:\nexpected: %f\ngot: %f\n", expected, got);
+    } else {
+        printf("fail:\nexpected: %f\ngot: %f\n", expected, got);
+    }
+    printf("===  ===\n");
+
+}
 /*
 helper functions
 ////////////////////////////////////
@@ -161,8 +172,10 @@ void test_equals_1() {
     printf("=== ===\n");
 }
 
+/*
+tsp tests
+*/
 void test_tsp_1() {
-    printf("=== tsp1 ===\n");
     int n = 3;
     double true_distance = 12.0;
     city cities[n];
@@ -173,18 +186,11 @@ void test_tsp_1() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    if (rdistance == true_distance) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail! %f, %f\n", true_distance, rdistance);
-    }
-    printf("=== ===\n");
+    assert_equal(1, true_distance, rdistance);
 }
 
 
 void test_tsp_2() {
-    printf("=== tsp2 ===\n");
     int n = 4;
     double true_distance = 3 + 6 + pow(97, .5) + 4;
     city cities[n];
@@ -196,18 +202,11 @@ void test_tsp_2() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    if (rdistance == true_distance) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-    printf("=== ===\n");
+    assert_equal(2, true_distance, rdistance);
 }
 
 
 void test_tsp_3() {
-    printf("=== tsp3 ===\n");
     int n = 4;
     city cities[n];
     cities[0] = make_city(0.0, 0.0);
@@ -219,18 +218,11 @@ void test_tsp_3() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    if (rdistance == true_distance) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-    printf("=== ===\n");
+    assert_equal(3, true_distance, rdistance);
 }
 
 
 void test_tsp_4() {
-    printf("=== tsp4 ===\n");
     int n = 3;
     double true_distance = 0;
     city cities[n];
@@ -241,17 +233,10 @@ void test_tsp_4() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    if (rdistance == true_distance) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-    printf("=== ===\n");
+    assert_equal(4, true_distance, rdistance);
 }
 
 void test_tsp_5() {
-    printf("=== tsp5 ===\n");
     int n = 5;
     city cities[n];
     cities[0] = make_city(0.0, 0.0);
@@ -264,17 +249,10 @@ void test_tsp_5() {
     tsp(&rdistance, rpath, cities, n);
 
     double true_distance = 24.831310;
-    if (almost_equal(rdistance, true_distance) == 1) {
-        printf("success!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-    printf("=== ===\n");
+    assert_equal(5, true_distance, rdistance);
 }
 
 void test_tsp_6() {
-    printf("=== tsp6 ===\n");
     int n = 10;
     city cities[n];
     cities[0] = make_city(0.0, 0.0);
@@ -292,14 +270,7 @@ void test_tsp_6() {
     tsp(&rdistance, rpath, cities, n);
     
     double true_distance = 18.0;
-    if (almost_equal(rdistance, true_distance) == 1) {
-        printf("sucess!\n");
-    }
-    else {
-        printf("fail!\n");
-    }
-
-    printf("=== ===\n");
+    assert_equal(6, true_distance, rdistance);
 }
 
 void test_tsp_memory() {
