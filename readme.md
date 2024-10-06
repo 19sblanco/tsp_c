@@ -16,7 +16,7 @@ Cities:
 
 *I completed different versions of this program through GitHub branches. To look at the code for another version, change the branch.*
 
-### Version Beta (Completed)
+### Version Beta 
 - ✅ Working program in Python
 - [Python repository](https://github.com/19sblanco/tsp_python)
 
@@ -24,7 +24,7 @@ Cities:
 |--------|----------------|
 | 12 | 808.4938039779663 |
 
-### Version 1.0 (Completed)
+### Version 1.0 baseline
 - ✅ Completed working program
 
 | Cities | Time (seconds) |
@@ -32,7 +32,7 @@ Cities:
 | 12 | 23.480295 |
 | 13 | 265.090176 |
 
-### Version 2.0 (Completed)
+### Version 2.0 
 - ✅ Handled all memory in the stack (with no heap memory usage)
 
 | Cities | Time (seconds) |
@@ -40,7 +40,7 @@ Cities:
 | 12 | 13.547940 |
 | 13 | 221.827008 |
 
-### Version 3.0 (Completed)
+### Version 3.0 
 - ✅ Stop searching down a path if that path is longer than the current best
 
 | Cities | Time (seconds) |
@@ -51,13 +51,20 @@ Cities:
 | 15 | 14.350740 |
 | 16 | 110.076049 |
 
-### Future Versions (Planned)
 
 #### Version 4.0
-- [ ] Use bitwise operations instead of arrays
+- ✅  Use Dynamic programming and bitwise operations 
 
-#### Version 5.0
-- [ ] Use memoization to store work so that redundant values don't need to be recomputed
+| Cities | Time (seconds) |
+|--------|----------------|
+| 18 | 0.527816 |
+| 19 | 1.272880 |
+| 20 | 2.794500 |
+| 21 | 6.400442 |
+| 22 | 15.197409 |
+
+### Future Versions (Planned)
 
 #### Version 6.0
 - [ ] Add threads
+- [ ] Use ints instead of doubles
