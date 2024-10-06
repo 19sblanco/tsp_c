@@ -35,6 +35,18 @@ tsp_C:
     time: 110.076049
     cities: 18
     time: 3381.791545
+
+  tsp w/ dynamic programming and bitwise operations
+    cities: 18
+    time: 0.527816
+    cities: 19
+    time: 1.272880
+    cities: 20
+    time: 2.794500 
+    cities: 21
+    time: 6.400442 
+    cities: 22
+    time: 15.197409 
 */
 
 
