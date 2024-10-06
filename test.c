@@ -68,8 +68,9 @@ int almost_equal(double a, double b) {
 
 void assert_equal(int n, double expected, double got) {
     printf("=== %d ===\n", n);
-    if (expected == got) {
-        printf("success!:\nexpected: %f\ngot: %f\n", expected, got);
+    if (almost_equal(expected, got)) {
+        printf("success!\n");
+        // printf("success!:\nexpected: %f\ngot: %f\n", expected, got);
     } else {
         printf("fail:\nexpected: %f\ngot: %f\n", expected, got);
     }
@@ -327,9 +328,9 @@ int main() {
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();
-    // test_tsp_4();
-    // test_tsp_5();
-    // test_tsp_6();
+    test_tsp_4();
+    test_tsp_5();
+    test_tsp_6();
     // test_remove_1();
     // test_remove_2();
     // test_almost_equal();

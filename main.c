@@ -63,7 +63,7 @@ int main() {
 
     printf("=== output ===\n");
     printf("distance: %f\npath: ", rdistance);
-    print_cities(cities, rpath, n);
+    // print_cities(cities, rpath, n);
     print_distances(distances, n);
     printf("Time used: %f seconds\n", cpu_time_used);
     

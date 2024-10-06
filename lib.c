@@ -171,7 +171,7 @@ double** make_memo(int cc, int ac) {
     for (int i = 0; i < cc; i++) {
         memo[i] = (double*)malloc(ac * sizeof(double));
         for (int j = 0; j < ac; j++) {
-            memo[i][j] = 0;
+            memo[i][j] = 0.0;
         }
     }
     return memo;
@@ -190,24 +190,8 @@ double** memo;
 The recursive tsp function
 This uses a method called backtracking,
 */
-unsigned int tsp_helper(unsigned int cc, unsigned int ac) 
+double tsp_helper(unsigned int cc, unsigned int ac) 
 {
-    /*
-    if ac = 0: // if cities available
-        return 0;
-    
-    if memo[cc][ac] != 0:
-        return val in memo
-
-    best = 0;
-    for each ac in ac:
-        if not visited:
-            visit it
-        store best
-    
-    set best in memo
-    return best
-    */
     if (ac == 0) {
         memo[cc][0] = distances[(cc * n) + 0];
         return distances[(cc * n) + 0];
@@ -215,12 +199,12 @@ unsigned int tsp_helper(unsigned int cc, unsigned int ac)
     if (memo[cc][ac] != 0) {
         return memo[cc][ac];
     }
-    int best = -1;
+    double best = -1;
     for (int i = 0; i < n; i++) {
         if (ac & (1 << i)) { 
             int new_ac = mark(ac, i);
-            int sub_best = tsp_helper(i, new_ac);
-            int potential_best = distances[(cc * n) + i] + sub_best;
+            double sub_best = tsp_helper(i, new_ac);
+            double potential_best = distances[(cc * n) + i] + sub_best;
             if ((best == -1) || (potential_best < best)) {
                 best = potential_best;
             }
@@ -246,9 +230,7 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
 
     unsigned int available_cities = set_available_cities(n);
     unsigned int current_city = 0;
-    unsigned int distance = tsp_helper(current_city, available_cities);
-    // print_distances(distances, n);
-    // print_memo(memo, n, 1 << n);
+    double distance = tsp_helper(current_city, available_cities);
 
     *rdistance = distance;
 }
