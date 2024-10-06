@@ -140,6 +140,15 @@ unsigned int set_available_cities(unsigned int n) {
     return ret;
 }
 
+/*
+mark you have visited a city
+*/
+unsigned int mark(unsigned int n, unsigned int position) {
+    unsigned int mask = ~(1 << position);
+    unsigned int new_n = n & mask;
+    return new_n;
+}
+
 void printBinary(unsigned int num) {
     for (int i = 31; i >= 0; i--) {
         printf("%d", (num >> i) & 1);
@@ -147,11 +156,35 @@ void printBinary(unsigned int num) {
     printf(" (%u)\n", num);
 }
 
+void print_memo(double** memo, int cc, int ac) {
+    for (int i = 0; i < cc; i++) {
+        for (int j = 0; j < ac; j++) {
+            printf("%f, ", memo[i][j]);
+            
+        }
+        printf("\n");
+    }
+}
+
+double** make_memo(int cc, int ac) {
+    double** memo = (double**)malloc(cc * sizeof(double*));
+    for (int i = 0; i < cc; i++) {
+        memo[i] = (double*)malloc(ac * sizeof(double));
+        for (int j = 0; j < ac; j++) {
+            memo[i][j] = 0;
+        }
+    }
+    return memo;
+}
+
+
+
 // global variables for the tsp and tsp_helper functions below
 double best_so_far;
 int fc = 0; // first city will always have an id of 0
 double* distances; // distance matrix for each city
 int n; // number of cities
+double** memo;
 
 /*
 The recursive tsp function
@@ -160,54 +193,41 @@ This uses a method called backtracking,
 unsigned int tsp_helper(unsigned int cc, unsigned int ac) 
 {
     /*
-    base case:
-
-    recursive step:
-
+    if ac = 0: // if cities available
+        return 0;
     
+    if memo[cc][ac] != 0:
+        return val in memo
+
+    best = 0;
+    for each ac in ac:
+        if not visited:
+            visit it
+        store best
+    
+    set best in memo
+    return best
     */
-
-    // if (curr_distance > best_so_far) {
-    //     *rdistance = curr_distance;
-    //     return;
-    // }
-
-    // int ac_len = n - (depth + 1);
-    // if (ac_len == 0)
-    // {
-    //     *rdistance = curr_distance + distances[(cc * n) + fc];
-    //     if (*rdistance < best_so_far) {
-    //         best_so_far = *rdistance;
-    //     }
-    //     _copy(curr_path, rpath, n);
-    //     return;
-    // }
-
-    // double s_d_sofar = -1.0;
-    // int s_p_sofar[n];
-
-    // for (int i = 0; i < n; i++)
-    // {
-    //     // int ac = avail_cities[i];
-    //     if (!((avail_cities >> i) & 1)) {
-    //         continue;
-    //     }
-    //     double new_dist = curr_distance + distances[(cc * n) + ac];
-    //     int new_ac[ac_len - 1];
-    //     _remove(avail_cities, new_ac, ac, ac_len);
-    //     int new_path[depth + 1];
-    //     _add(curr_path, new_path, ac, depth);
-    //     double best_distance;
-    //     int best_path[n];
-    //     tsp_helper(&best_distance, best_path, new_dist, new_path, ac, new_ac, depth + 1);
-    //     if ((s_d_sofar == -1.0) || (best_distance < s_d_sofar))
-    //     {
-    //         s_d_sofar = best_distance;
-    //         _copy(best_path, s_p_sofar, n);
-    //     }
-    // }
-    // *rdistance = s_d_sofar;
-    // _copy(s_p_sofar, rpath, n);
+    if (ac == 0) {
+        memo[cc][0] = distances[(cc * n) + 0];
+        return distances[(cc * n) + 0];
+    }
+    if (memo[cc][ac] != 0) {
+        return memo[cc][ac];
+    }
+    int best = -1;
+    for (int i = 0; i < n; i++) {
+        if (ac & (1 << i)) { 
+            int new_ac = mark(ac, i);
+            int sub_best = tsp_helper(i, new_ac);
+            int potential_best = distances[(cc * n) + ac] + sub_best;
+            if ((best == -1) || (potential_best < best)) {
+                best = potential_best;
+            }
+        }
+    }
+    memo[cc][ac] = best;
+    return best;
 }
 
 /*
@@ -222,14 +242,15 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
     double d[n * n];
     distances = d;
     get_distances(distances, cities, n);
-    int memo[n][1 << n]; // todo figure out memo size 
+    memo = (double**)make_memo(n, 1 << n);
 
     unsigned int available_cities = set_available_cities(n);
     unsigned int current_city = 0;
     unsigned int distance = tsp_helper(current_city, available_cities);
+    print_distances(distances, n);
+    print_memo(memo, n, 1 << n);
 
     *rdistance = distance;
-
 }
 
 /*
