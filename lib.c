@@ -220,7 +220,7 @@ unsigned int tsp_helper(unsigned int cc, unsigned int ac)
         if (ac & (1 << i)) { 
             int new_ac = mark(ac, i);
             int sub_best = tsp_helper(i, new_ac);
-            int potential_best = distances[(cc * n) + ac] + sub_best;
+            int potential_best = distances[(cc * n) + i] + sub_best;
             if ((best == -1) || (potential_best < best)) {
                 best = potential_best;
             }
