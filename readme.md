@@ -34,10 +34,9 @@ Cities:
 | 13 | 265.090176 |
 
 #### speed up table
-| Version | Multiplier |
+| Version | Multiplier |  
 | ------- | ---------- |
 | Beta | 34.43 |
-
 
 
 
@@ -47,6 +46,14 @@ Cities:
 |--------|----------------|
 | 12 | 13.547940 |
 | 13 | 221.827008 |
+
+
+#### speed up table
+| Version | Multiplier |  
+| ------- | ---------- |
+| Beta | 59.67 |
+| v1.0 |  1.195-1.73 |
+
 
 ### Version 3.0 
 
@@ -59,6 +66,14 @@ Cities:
 | 16 | 110.076049 |
 
 
+#### speed up table
+| Version | Multiplier |  
+| ------- | ---------- |
+| Beta | 1505.60589 |
+| v1.0 |  43.7258-104.4759 |
+| v2.0 |  25.22-87.4253 |
+
+
 #### Version 4.0
 
 | Cities | Time (seconds) |
@@ -68,6 +83,13 @@ Cities:
 | 20 | 2.794500 |
 | 21 | 6.400442 |
 | 22 | 15.197409 |
+
+| Version | Multiplier |  
+| ------- | ---------- |
+| Beta |  |
+| v1.0 |   |
+| v2.0 |   |
+| v3.0 |   |
 
 ### Future Versions (Planned)
 
