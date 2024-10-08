@@ -234,5 +234,6 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
     unsigned int current_city = 0;
     double distance = tsp_helper(current_city, available_cities);
 
+    print_memo(memo, n, 1 << n);
     *rdistance = distance;
 }
