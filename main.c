@@ -38,17 +38,17 @@ tsp_C:
 
   tsp w/ dynamic programming and bitwise operations
     cities: 12
-    time: 0.045827 
+    time: 0.004070
     cities: 13
-    time: 0.089616
+    time: 0.009303
     cities: 14
-    time: 0.199965 
+    time: 0.028719
     cities: 15
-    time: 0.424461 
+    time: 0.053919
     cities: 16
-    time: 0.906384 
+    time: 0.093316
     cities: 18
-    time: 4.225971 
+    time: 0.505427
     cities: 19
     time: 1.272880
     cities: 20
@@ -71,11 +71,11 @@ int main() {
     double threshold = 1.0;
 
     clock_t start, end;
-    start = clock();
     city cities[n];
     random_cities(cities, n, threshold);
     double rdistance = 0.0;
     int rpath[n];
+    start = clock();
     tsp(&rdistance, rpath, cities, n);
     end = clock();
 
@@ -84,9 +84,9 @@ int main() {
     get_distances(distances, cities, n);
 
     printf("=== output ===\n");
-    printf("distance: %f\npath: ", rdistance);
+    // printf("distance: %f\npath: ", rdistance);
     // print_cities(cities, rpath, n);
-    print_distances(distances, n);
+    // print_distances(distances, n);
     printf("Time used: %f seconds\n", cpu_time_used);
     
     system("paplay /usr/share/sounds/freedesktop/stereo/complete.oga"); // play a bell noise when program is haulted
