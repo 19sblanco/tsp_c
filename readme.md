@@ -1,26 +1,44 @@
-# Traveling Salesman Problem Implemented in C
+# Optimizing the Traveling Salesman Problem 
 
-> *Using as few libraries as possible*
+> *Built from scratch*
 
-## Algorithm
+This repository is a study of the traveling salesman problem and the various ways to optimize it. I examined different optimizations and algorithmic improvements would impact the running time and algorithmic complexity of the code. To achieve this I conducted emprical experiments where I measured the time for my program to complete with different inputs and I worked out the algorithmic complexity by hand to figure out how much better an optimization is on an algorithmic level.
 
-I used different algorithms depending on the version. The Beta, v1.0, v2.0 all use a brute force approach. V3.0 uses a more sophisticated brute force approach called 
-{beta, v1.0, v2.0} -> recursive naive brute force (does every possibility)
-{v3.0} -> recursive backtracking approach (stop going down paths you know aren't the shortest)
-{v4.0} -> dynamic  programming approach w/ bitwise operations (don't redo work and utilize fast speed of bitwise operations)
+**Problem Description**
+The Traveling Salesman Problem (tsp) says "Given a set of cities and their coordinates, what is the shortest path that passes through all cities once then returns to the originial city?" 
 
-## Data Representation
+Pretty simple sounding problem but Tsp is a famous problem in computer science because its notoriously HARD. Not only is this algoritm considered decently hard to impliment its classified as a hard algorithm because computers have a hard time with these algoirthms because the workload required to complete one of these increases drastically as the size of the input increases. 
 
-Cities:
-- Get inputted as coordinates (x, y)
-- Once inputted, the program uses the coordinates of each city to calculate a distance matrix
+**Problem representation**
+- I represented cities as an x, y pair (x, y)
+- I used a distance matrix, a precomputed table containing all pairwise distances between cities
 
-## Different Versions
 
-*I completed different versions of this program through GitHub branches. To look at the code for another version, change the branch.*
+### Different Versions
+Each later version of the code is build directly from the version previous to it, with the exception of the beta version to v1.0, in this case the beta version and v1.0 only differ in the programming langauge it was implimented in. Where the beta was implimented in python and v1.0 was implimented in C. 
+
+
+**Note: Accessing different versions code**
+To access different versions of the code, select a different branch in github.
+
+**Beta**: [Python repository](https://github.com/19sblanco/tsp_python)
+
+**v1.0 (main)**
+v1.0 impliments a naive brute force recursive algorithm in C. This code will recursively search down all possible paths. There are no optimizations what so ever, just brutally dumb code. I thought that this would serve as a good base line to build optimizations on top of.
+
+**v2.0**
+v2.0 impliments the same algorithm as before but instead of using memory on the heap, the code now uses only stack memory. Stack memory is faster than heap memory because heap memory needs additional overhead to manage. This overhead doesn't grow as fast as the problem size grows, meaning, when you increase the input, and therfore problem size, you don't increase the savings this optimization gives you.
+
+**v3.0**
+For v3.0, without any more research and just thinking on my own, I implimented the backtracking approach optimization on the recursive algorithm. Backtracking is an algorithmic optimization where your code realizes its going down a path that is guarenteed to not be the correct answer, it will backtrack to a state where its on a path that has a chance of producing a correct answer.
+
+**v4.0**
+v4.0 is where I use dynamic programming with bitmasking. Dynamic programming is the first time where my code gets a better complexity class going from O(n!) to O(n^2 * 2^n). Bit masking also speeds things up because bitwise operations are really fast for a cpu to perform and it saves space for better utilization of the cpu cache.
+
+
+## Tables
 
 ### Version Beta 
-- [Python repository](https://github.com/19sblanco/tsp_python)
 
 | Cities | Time (seconds) |
 |--------|----------------|
@@ -95,8 +113,3 @@ Cities:
 | v2.0 |  3328.732-23844.674 |
 | v3.0 |  131.938-1179.605 |
 
-### Future Versions (Planned)
-
-#### Version 6.0
-- [ ] Add threads
-- [ ] Use ints instead of doubles
