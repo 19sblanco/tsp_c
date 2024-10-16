@@ -66,10 +66,11 @@ int almost_equal(double a, double b) {
     else return 0;
 }
 
-void assert_equal(int n, double expected, double got) {
+void assert_equal(int n, double expected, double got, int *rpath, int path_len) {
     printf("=== %d ===\n", n);
     if (almost_equal(expected, got)) {
         printf("success!\n");
+        print_array(rpath, path_len);
         // printf("success!:\nexpected: %f\ngot: %f\n", expected, got);
     } else {
         printf("fail:\nexpected: %f\ngot: %f\n", expected, got);
@@ -111,7 +112,7 @@ void test_tsp_1() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    assert_equal(1, true_distance, rdistance);
+    assert_equal(1, true_distance, rdistance, rpath, n);
 }
 
 
@@ -127,7 +128,7 @@ void test_tsp_2() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    assert_equal(2, true_distance, rdistance);
+    assert_equal(2, true_distance, rdistance, rpath, n);
 }
 
 
@@ -143,7 +144,7 @@ void test_tsp_3() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    assert_equal(3, true_distance, rdistance);
+    assert_equal(3, true_distance, rdistance, rpath, n);
 }
 
 
@@ -158,7 +159,7 @@ void test_tsp_4() {
     int rpath[n];
     tsp(&rdistance, rpath, cities, n);
 
-    assert_equal(4, true_distance, rdistance);
+    assert_equal(4, true_distance, rdistance, rpath, n);
 }
 
 void test_tsp_5() {
@@ -174,7 +175,7 @@ void test_tsp_5() {
     tsp(&rdistance, rpath, cities, n);
 
     double true_distance = 24.831310;
-    assert_equal(5, true_distance, rdistance);
+    assert_equal(5, true_distance, rdistance, rpath, n);
 }
 
 void test_tsp_6() {
@@ -195,7 +196,7 @@ void test_tsp_6() {
     tsp(&rdistance, rpath, cities, n);
     
     double true_distance = 18.0;
-    assert_equal(6, true_distance, rdistance);
+    assert_equal(6, true_distance, rdistance, rpath, n);
 }
 
 void test_tsp_memory() {
@@ -239,8 +240,8 @@ int main() {
     test_tsp_1();
     test_tsp_2();
     test_tsp_3();
-    // test_tsp_4();
-    // test_tsp_5();
-    // test_tsp_6();
+    test_tsp_4();
+    test_tsp_5();
+    test_tsp_6();
     // test_tsp_memory();
 }

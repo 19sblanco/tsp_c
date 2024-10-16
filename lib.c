@@ -244,6 +244,17 @@ void get_path(int *path) {
     }
 }
 
+void print_array(int* arr, int n) {
+    for (int i = 0; i < n; i++) {
+        if (i < n-1) {
+            printf("%d, ", arr[i]);
+        }
+        else {
+            printf("%d\n", arr[i]);
+        }
+    }
+}
+
 void print_path()
 {
     int cc = 0;
@@ -276,9 +287,6 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
     unsigned int available_cities = set_available_cities(n);
     unsigned int current_city = 0;
     double distance = tsp_helper(current_city, available_cities);
-
-    print_path();
-
     get_path(rpath);
     *rdistance = distance;
 }
