@@ -123,7 +123,6 @@ int input_random_cities()
     return number;
 }
 
-
 /*
 bit operation functions
 */
@@ -134,9 +133,11 @@ has been visited or not. A bit of:
     1 represents a city being available to visit
     0 represents a city not being avaiable to visit
 */
-unsigned int set_available_cities(unsigned int n) {
+unsigned int set_available_cities(unsigned int n)
+{
     int ret = 0;
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < n; i++)
+    {
         ret |= (1 << i);
     }
     return ret;
@@ -145,75 +146,116 @@ unsigned int set_available_cities(unsigned int n) {
 /*
 mark city as visited
 */
-unsigned int mark(unsigned int n, unsigned int position) {
+unsigned int mark(unsigned int n, unsigned int position)
+{
     unsigned int mask = ~(1 << position);
     unsigned int new_n = n & mask;
     return new_n;
 }
 
-void printBinary(unsigned int num) {
-    for (int i = 31; i >= 0; i--) {
+void printBinary(unsigned int num)
+{
+    for (int i = 31; i >= 0; i--)
+    {
         printf("%d", (num >> i) & 1);
     }
     printf(" (%u)\n", num);
 }
 
-void print_memo(double** memo, int cc, int ac) {
-    for (int i = 0; i < cc; i++) {
-        for (int j = 0; j < ac; j++) {
+void print_memo(double **memo, int cc, int ac)
+{
+    for (int i = 0; i < cc; i++)
+    {
+        for (int j = 0; j < ac; j++)
+        {
             printf("%f, ", memo[i][j]);
-            
         }
         printf("\n");
     }
 }
 
-double** make_memo(int cc, int ac) {
-    double** memo = (double**)malloc(cc * sizeof(double*));
-    for (int i = 0; i < cc; i++) {
-        memo[i] = (double*)malloc(ac * sizeof(double));
-        for (int j = 0; j < ac; j++) {
+double **make_memo(int cc, int ac)
+{
+    double **memo = (double **)malloc(cc * sizeof(double *));
+    for (int i = 0; i < cc; i++)
+    {
+        memo[i] = (double *)malloc(ac * sizeof(double));
+        for (int j = 0; j < ac; j++)
+        {
             memo[i][j] = 0.0;
         }
     }
     return memo;
 }
 
-
-
 // global variables for the tsp and tsp_helper functions below
 double best_so_far;
-int fc = 0; // first city will always have an id of 0
-double* distances; // distance matrix for each city
-int n; // number of cities
-double** memo;
+int fc = 0;        // first city will always have an id of 0
+double *distances; // distance matrix for each city
+int n;             // number of cities
+double **memo;
+double **memo_path;
 
 /*
 The dynamic programming tsp function
 This uses bit masking
 */
-double tsp_helper(unsigned int cc, unsigned int ac) 
+double tsp_helper(unsigned int cc, unsigned int ac)
 {
-    if (ac == 0) {
+    if (ac == 0)
+    {
         memo[cc][0] = distances[(cc * n) + 0];
         return distances[(cc * n) + 0];
     }
-    if (memo[cc][ac] != 0) {
+    if (memo[cc][ac] != 0)
+    {
         return memo[cc][ac];
     }
-    double best = -1;
-    for (int i = 0; i < n; i++) {
-        if (ac & (1 << i)) { 
+    double best_dist = -1;
+    double next_city = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (ac & (1 << i))
+        {
             int new_ac = mark(ac, i);
-            double sub_best = tsp_helper(i, new_ac);
-            double potential_best = distances[(cc * n) + i] + sub_best;
-            if ((best == -1) || (potential_best < best)) {
-                best = potential_best;
+            double potential_best = tsp_helper(i, new_ac) + distances[(cc * n) + i];
+            if ((best_dist == -1) || (potential_best < best_dist))
+            {
+                best_dist = potential_best;
+                next_city = i;
             }
         }
     }
-    memo[cc][ac] = best;
-    return best;
+    memo_path[cc][ac] = next_city;
+    memo[cc][ac] = best_dist;
+    return best_dist;
+}
+
+
+void get_path(int *path) {
+    int cc = 0;
+    int ac = set_available_cities(n);
+    path[0] = 0;
+    for (int i = 1; i < n; i++)
+    {
+        cc = memo_path[cc][ac];
+        path[i] = cc;
+        ac = mark(ac, cc);
+    }
+}
+
+void print_path()
+{
+    int cc = 0;
+    int ac = set_available_cities(n);
+    printf("0 -> ");
+    for (int i = 0; i < n - 1; i++)
+    {
+        cc = memo_path[cc][ac];
+        printf("%d -> ", cc);
+        ac = mark(ac, cc);
+    }
+    printf("0\n");
 }
 
 /*
@@ -228,11 +270,15 @@ void tsp(double *rdistance, int *rpath, city *cities, int num_cities)
     double d[n * n];
     distances = d;
     get_distances(distances, cities, n);
-    memo = (double**)make_memo(n, 1 << n);
+    memo = (double **)make_memo(n, 1 << n);
+    memo_path = (double **)make_memo(n, 1 << n);
 
     unsigned int available_cities = set_available_cities(n);
     unsigned int current_city = 0;
     double distance = tsp_helper(current_city, available_cities);
 
+    print_path();
+
+    get_path(rpath);
     *rdistance = distance;
 }
